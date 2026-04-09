@@ -1,0 +1,4630 @@
+{
+  "apidogProject": "1.0.0",
+  "$schema": {
+    "app": "apidog",
+    "type": "project",
+    "version": "1.2.0"
+  },
+  "info": {
+    "name": "Survey API",
+    "description": "",
+    "mockRule": {
+      "rules": [],
+      "enableSystemRule": true
+    }
+  },
+  "projectSetting": {
+    "id": "1226020",
+    "auth": {},
+    "securityScheme": {},
+    "gateway": [],
+    "language": "en-US",
+    "apiStatuses": [
+      "developing",
+      "testing",
+      "released",
+      "deprecated"
+    ],
+    "mockSettings": {},
+    "preProcessors": [],
+    "postProcessors": [],
+    "advancedSettings": {
+      "enableJsonc": false,
+      "enableBigint": false,
+      "responseValidate": true,
+      "enableTestScenarioSetting": false,
+      "enableYAPICompatScript": false,
+      "isDefaultUrlEncoding": 3,
+      "publishedDocUrlRules": {
+        "defaultRule": "SLUGIFY_WITH_RESOURCE_KEY",
+        "resourceKeyStandard": "NEW"
+      }
+    },
+    "initialDisabledMockIds": [],
+    "servers": [
+      {
+        "id": "default",
+        "name": "Default Server",
+        "moduleId": 1131474
+      }
+    ],
+    "cloudMock": {
+      "security": "free",
+      "enable": false,
+      "tokenKey": "apidogToken"
+    }
+  },
+  "apiCollection": [
+    {
+      "name": "Root",
+      "id": 7216725,
+      "auth": {},
+      "securityScheme": {},
+      "parentId": 0,
+      "serverId": "",
+      "description": "",
+      "identityPattern": {
+        "httpApi": {
+          "type": "methodAndPath",
+          "bodyType": "",
+          "fields": []
+        }
+      },
+      "shareSettings": {},
+      "visibility": "SHARED",
+      "moduleId": 1131474,
+      "preProcessors": [
+        {
+          "id": "inheritProcessors",
+          "type": "inheritProcessors",
+          "data": {}
+        }
+      ],
+      "postProcessors": [
+        {
+          "id": "inheritProcessors",
+          "type": "inheritProcessors",
+          "data": {}
+        }
+      ],
+      "inheritPostProcessors": {},
+      "inheritPreProcessors": {},
+      "items": [
+        {
+          "name": "Authentication",
+          "id": 7258347,
+          "auth": {},
+          "securityScheme": {},
+          "parentId": 0,
+          "serverId": "",
+          "description": "",
+          "identityPattern": {
+            "httpApi": {
+              "type": "inherit",
+              "bodyType": "",
+              "fields": []
+            }
+          },
+          "shareSettings": {},
+          "visibility": "INHERITED",
+          "moduleId": 1131474,
+          "preProcessors": [
+            {
+              "id": "inheritProcessors",
+              "type": "inheritProcessors",
+              "data": {}
+            }
+          ],
+          "postProcessors": [
+            {
+              "id": "inheritProcessors",
+              "type": "inheritProcessors",
+              "data": {}
+            }
+          ],
+          "inheritPostProcessors": {},
+          "inheritPreProcessors": {},
+          "items": [
+            {
+              "name": "Регистрация пользователя",
+              "api": {
+                "id": "30779304",
+                "method": "post",
+                "path": "/register",
+                "parameters": {
+                  "query": [],
+                  "path": [],
+                  "cookie": [],
+                  "header": []
+                },
+                "auth": {},
+                "securityScheme": {},
+                "commonParameters": {
+                  "query": [],
+                  "body": [],
+                  "cookie": [],
+                  "header": []
+                },
+                "responses": [
+                  {
+                    "id": "141021800",
+                    "code": "201",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {
+                        "token": {
+                          "type": "string",
+                          "description": "JWT-токен для аутентификации"
+                        },
+                        "user": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "email": {
+                              "type": "string"
+                            },
+                            "role": {
+                              "type": "integer",
+                              "description": "1=author, 2=respondent, 3=admin"
+                            }
+                          },
+                          "x-apidog-orders": [
+                            "id",
+                            "name",
+                            "email",
+                            "role"
+                          ]
+                        }
+                      },
+                      "x-apidog-orders": [
+                        "token",
+                        "user"
+                      ]
+                    },
+                    "itemSchema": {},
+                    "description": "Пользователь успешно зарегистрирован",
+                    "contentType": "json",
+                    "mediaType": "application/json",
+                    "oasExtensions": ""
+                  },
+                  {
+                    "id": "141073845",
+                    "code": "409",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "itemSchema": {},
+                    "description": "Email уже зарегистрирован",
+                    "contentType": "noContent",
+                    "mediaType": "",
+                    "oasExtensions": ""
+                  },
+                  {
+                    "id": "150051480",
+                    "code": "422",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "itemSchema": {},
+                    "description": "Ошибка валидации данных",
+                    "contentType": "noContent",
+                    "mediaType": "",
+                    "oasExtensions": ""
+                  }
+                ],
+                "responseExamples": [],
+                "requestBody": {
+                  "type": "application/json",
+                  "parameters": [],
+                  "jsonSchema": {
+                    "type": "object",
+                    "required": [
+                      "email",
+                      "password"
+                    ],
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "Имя пользователя (необязательно)",
+                        "examples": [
+                          "John Doe"
+                        ]
+                      },
+                      "email": {
+                        "type": "string",
+                        "format": "email",
+                        "description": "Уникальный email адрес",
+                        "examples": [
+                          "user@example.com"
+                        ]
+                      },
+                      "password": {
+                        "type": "string",
+                        "minLength": 8,
+                        "description": "Пароль (минимум 8 символов)",
+                        "examples": [
+                          "password123"
+                        ]
+                      }
+                    },
+                    "x-apidog-orders": [
+                      "name",
+                      "email",
+                      "password"
+                    ]
+                  },
+                  "required": true,
+                  "mediaType": "application/json",
+                  "examples": [
+                    {
+                      "value": "{\n    \"name\": \"John Doe\",\n    \"email\": \"user@example.com\",\n    \"password\": \"password123\"\n}",
+                      "mediaType": "application/json",
+                      "description": ""
+                    }
+                  ],
+                  "oasExtensions": ""
+                },
+                "description": "Регистрирует нового пользователя и автоматически выполняет вход.\n\n### Требования к паролю\n\n- Минимум 8 символов\n- Рекомендуется использовать буквы и цифры\n\n### Ответ\n\nУспешный ответ содержит JWT-токен и данные пользователя.\n\n### Примеры\n\n**Успешная регистрация:**\n```json\n{\n  \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...\",\n  \"user\": {\n    \"id\": 1,\n    \"name\": \"John Doe\",\n    \"email\": \"user@example.com\",\n    \"role\": 2\n  }\n}\n```\n\n**Ошибка валидации (422):**\n```json\n{\n  \"message\": \"The email field must be a valid email address.\",\n  \"errors\": {\n    \"email\": [\"The email field must be a valid email address.\"]\n  }\n}\n```",
+                "tags": [
+                  "Authentication"
+                ],
+                "status": "released",
+                "serverId": "",
+                "operationId": "",
+                "sourceUrl": "",
+                "ordering": 6,
+                "cases": [
+                  {
+                    "id": 41852965,
+                    "type": "DEBUG_CASE",
+                    "path": null,
+                    "name": "Success",
+                    "responseId": "141021800",
+                    "parameters": {
+                      "path": [],
+                      "query": [],
+                      "cookie": [],
+                      "header": []
+                    },
+                    "commonParameters": {},
+                    "requestBody": {
+                      "parameters": [],
+                      "data": "{\n    \"name\": \"John Doe\",\n    \"email\": \"user@example.com\",\n    \"password\": \"password123\"\n}",
+                      "type": "application/json",
+                      "generateMode": "normal"
+                    },
+                    "auth": {},
+                    "securityScheme": {},
+                    "advancedSettings": {
+                      "disabledSystemHeaders": {}
+                    },
+                    "requestResult": null,
+                    "visibility": "INHERITED",
+                    "moduleId": 1131474,
+                    "categoryId": 0,
+                    "tagIds": [],
+                    "apiTestDataList": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "inheritPostProcessors": {
+                      "enable": {},
+                      "defaultEnable": {}
+                    },
+                    "inheritPreProcessors": {
+                      "enable": {},
+                      "defaultEnable": {}
+                    }
+                  }
+                ],
+                "mocks": [],
+                "customApiFields": "{}",
+                "advancedSettings": {
+                  "disabledSystemHeaders": {}
+                },
+                "mockScript": {},
+                "codeSamples": [],
+                "commonResponseStatus": {},
+                "responseChildren": [],
+                "visibility": "INHERITED",
+                "moduleId": 1131474,
+                "oasExtensions": "",
+                "type": "http",
+                "preProcessors": [],
+                "postProcessors": [],
+                "inheritPostProcessors": {
+                  "enable": {},
+                  "defaultEnable": {}
+                },
+                "inheritPreProcessors": {
+                  "enable": {},
+                  "defaultEnable": {}
+                }
+              }
+            },
+            {
+              "name": "Вход в систему",
+              "api": {
+                "id": "30779305",
+                "method": "post",
+                "path": "/login",
+                "parameters": {
+                  "query": [],
+                  "path": [],
+                  "cookie": [],
+                  "header": []
+                },
+                "auth": {},
+                "securityScheme": {},
+                "commonParameters": {
+                  "query": [],
+                  "body": [],
+                  "cookie": [],
+                  "header": []
+                },
+                "responses": [
+                  {
+                    "id": "189651358",
+                    "code": "200",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {
+                        "token": {
+                          "type": "string",
+                          "description": "JWT-токен для аутентификации"
+                        },
+                        "user": {
+                          "type": "object",
+                          "x-apidog-orders": []
+                        }
+                      },
+                      "x-apidog-orders": [
+                        "token",
+                        "user"
+                      ]
+                    },
+                    "itemSchema": {},
+                    "description": "Успешный вход",
+                    "contentType": "json",
+                    "mediaType": "application/json",
+                    "oasExtensions": ""
+                  },
+                  {
+                    "id": "141072023",
+                    "code": "401",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "itemSchema": {},
+                    "description": "Неверные учётные данные (email или пароль)",
+                    "contentType": "noContent",
+                    "mediaType": "",
+                    "oasExtensions": ""
+                  },
+                  {
+                    "id": "107921607",
+                    "code": "422",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "itemSchema": {},
+                    "description": "Ошибка валидации данных",
+                    "contentType": "noContent",
+                    "mediaType": "",
+                    "oasExtensions": ""
+                  }
+                ],
+                "responseExamples": [],
+                "requestBody": {
+                  "type": "application/json",
+                  "parameters": [],
+                  "jsonSchema": {
+                    "type": "object",
+                    "required": [
+                      "email",
+                      "password"
+                    ],
+                    "properties": {
+                      "email": {
+                        "type": "string",
+                        "format": "email",
+                        "description": "Email адрес пользователя",
+                        "examples": [
+                          "user@example.com"
+                        ]
+                      },
+                      "password": {
+                        "type": "string",
+                        "description": "Пароль пользователя",
+                        "examples": [
+                          "password123"
+                        ]
+                      }
+                    },
+                    "x-apidog-orders": [
+                      "email",
+                      "password"
+                    ]
+                  },
+                  "required": true,
+                  "mediaType": "application/json",
+                  "examples": [
+                    {
+                      "value": "{\n    \"email\": \"user@example.com\",\n    \"password\": \"password123\"\n}",
+                      "mediaType": "application/json",
+                      "description": ""
+                    }
+                  ],
+                  "oasExtensions": ""
+                },
+                "description": "Аутентифицирует пользователя по email и паролю.\n\n### Ответ\n\nУспешный вход возвращает JWT-токен и данные пользователя.\n\n### Примеры\n\n**Успешный вход:**\n```json\n{\n  \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...\",\n  \"user\": {\n    \"id\": 1,\n    \"name\": \"John Doe\",\n    \"email\": \"user@example.com\"\n  }\n}\n```\n\n**Ошибка (401):**\n```json\n{\n  \"message\": \"Invalid credentials\"\n}\n```",
+                "tags": [
+                  "Authentication"
+                ],
+                "status": "released",
+                "serverId": "",
+                "operationId": "",
+                "sourceUrl": "",
+                "ordering": 12,
+                "cases": [
+                  {
+                    "id": 41852966,
+                    "type": "DEBUG_CASE",
+                    "path": null,
+                    "name": "Success",
+                    "responseId": "189651358",
+                    "parameters": {
+                      "path": [],
+                      "query": [],
+                      "cookie": [],
+                      "header": []
+                    },
+                    "commonParameters": {},
+                    "requestBody": {
+                      "parameters": [],
+                      "data": "{\n    \"email\": \"user@example.com\",\n    \"password\": \"password123\"\n}",
+                      "type": "application/json",
+                      "generateMode": "normal"
+                    },
+                    "auth": {},
+                    "securityScheme": {},
+                    "advancedSettings": {
+                      "disabledSystemHeaders": {}
+                    },
+                    "requestResult": null,
+                    "visibility": "INHERITED",
+                    "moduleId": 1131474,
+                    "categoryId": 0,
+                    "tagIds": [],
+                    "apiTestDataList": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "inheritPostProcessors": {
+                      "enable": {},
+                      "defaultEnable": {}
+                    },
+                    "inheritPreProcessors": {
+                      "enable": {},
+                      "defaultEnable": {}
+                    }
+                  }
+                ],
+                "mocks": [],
+                "customApiFields": "{}",
+                "advancedSettings": {
+                  "disabledSystemHeaders": {}
+                },
+                "mockScript": {},
+                "codeSamples": [],
+                "commonResponseStatus": {},
+                "responseChildren": [],
+                "visibility": "INHERITED",
+                "moduleId": 1131474,
+                "oasExtensions": "",
+                "type": "http",
+                "preProcessors": [],
+                "postProcessors": [],
+                "inheritPostProcessors": {
+                  "enable": {},
+                  "defaultEnable": {}
+                },
+                "inheritPreProcessors": {
+                  "enable": {},
+                  "defaultEnable": {}
+                }
+              }
+            },
+            {
+              "name": "Выход из системы",
+              "api": {
+                "id": "30779306",
+                "method": "post",
+                "path": "/logout",
+                "parameters": {
+                  "query": [],
+                  "path": [],
+                  "cookie": [],
+                  "header": []
+                },
+                "auth": {
+                  "type": "securityscheme"
+                },
+                "securityScheme": {
+                  "schemeGroups": [
+                    {
+                      "id": "wtmI0sSEWYpN4d-vfm64b",
+                      "schemeIds": [
+                        493507
+                      ]
+                    }
+                  ],
+                  "required": true,
+                  "use": {
+                    "id": "wtmI0sSEWYpN4d-vfm64b",
+                    "configs": {
+                      "493507": {
+                        "authConfigs": {
+                          "x-apidog": {
+                            "token": "{{bearerToken}}"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "scopes": {
+                    "wtmI0sSEWYpN4d-vfm64b": {
+                      "493507": []
+                    }
+                  }
+                },
+                "commonParameters": {
+                  "query": [],
+                  "body": [],
+                  "cookie": [],
+                  "header": []
+                },
+                "responses": [
+                  {
+                    "id": "140353525",
+                    "code": "200",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "examples": [
+                            "Successfully logged out"
+                          ]
+                        }
+                      },
+                      "x-apidog-orders": [
+                        "message"
+                      ]
+                    },
+                    "itemSchema": {},
+                    "description": "Успешный выход",
+                    "contentType": "json",
+                    "mediaType": "application/json",
+                    "oasExtensions": ""
+                  },
+                  {
+                    "id": "115615932",
+                    "code": "401",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "itemSchema": {},
+                    "description": "Требуется аутентификация",
+                    "contentType": "noContent",
+                    "mediaType": "",
+                    "oasExtensions": ""
+                  }
+                ],
+                "responseExamples": [],
+                "requestBody": {
+                  "type": "none",
+                  "parameters": [],
+                  "required": false,
+                  "mediaType": "",
+                  "examples": [],
+                  "oasExtensions": ""
+                },
+                "description": "Завершает сессию пользователя и инвалидирует текущий токен.\n\n### Важно\n\nПосле выхода токен становится недействительным. Для повторного входа необходимо снова вызвать `/login`.",
+                "tags": [
+                  "Authentication"
+                ],
+                "status": "released",
+                "serverId": "",
+                "operationId": "",
+                "sourceUrl": "",
+                "ordering": 18,
+                "cases": [
+                  {
+                    "id": 41852967,
+                    "type": "DEBUG_CASE",
+                    "path": null,
+                    "name": "Success",
+                    "responseId": "140353525",
+                    "parameters": {
+                      "path": [],
+                      "query": [],
+                      "cookie": [],
+                      "header": []
+                    },
+                    "commonParameters": {},
+                    "requestBody": {
+                      "parameters": [],
+                      "type": "none",
+                      "generateMode": "normal"
+                    },
+                    "auth": {},
+                    "securityScheme": {},
+                    "advancedSettings": {
+                      "disabledSystemHeaders": {}
+                    },
+                    "requestResult": null,
+                    "visibility": "INHERITED",
+                    "moduleId": 1131474,
+                    "categoryId": 0,
+                    "tagIds": [],
+                    "apiTestDataList": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "inheritPostProcessors": {
+                      "enable": {},
+                      "defaultEnable": {}
+                    },
+                    "inheritPreProcessors": {
+                      "enable": {},
+                      "defaultEnable": {}
+                    }
+                  }
+                ],
+                "mocks": [],
+                "customApiFields": "{}",
+                "advancedSettings": {
+                  "disabledSystemHeaders": {}
+                },
+                "mockScript": {},
+                "codeSamples": [],
+                "commonResponseStatus": {},
+                "responseChildren": [],
+                "visibility": "INHERITED",
+                "moduleId": 1131474,
+                "oasExtensions": "",
+                "type": "http",
+                "preProcessors": [],
+                "postProcessors": [],
+                "inheritPostProcessors": {
+                  "enable": {},
+                  "defaultEnable": {}
+                },
+                "inheritPreProcessors": {
+                  "enable": {},
+                  "defaultEnable": {}
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Surveys",
+          "id": 7258348,
+          "auth": {},
+          "securityScheme": {},
+          "parentId": 0,
+          "serverId": "",
+          "description": "",
+          "identityPattern": {
+            "httpApi": {
+              "type": "inherit",
+              "bodyType": "",
+              "fields": []
+            }
+          },
+          "shareSettings": {},
+          "visibility": "INHERITED",
+          "moduleId": 1131474,
+          "preProcessors": [
+            {
+              "id": "inheritProcessors",
+              "type": "inheritProcessors",
+              "data": {}
+            }
+          ],
+          "postProcessors": [
+            {
+              "id": "inheritProcessors",
+              "type": "inheritProcessors",
+              "data": {}
+            }
+          ],
+          "inheritPostProcessors": {},
+          "inheritPreProcessors": {},
+          "items": [
+            {
+              "name": "Получить список опубликованных опросов",
+              "api": {
+                "id": "30779307",
+                "method": "get",
+                "path": "/surveys",
+                "parameters": {
+                  "query": [],
+                  "path": [],
+                  "cookie": [],
+                  "header": []
+                },
+                "auth": {},
+                "securityScheme": {},
+                "commonParameters": {
+                  "query": [],
+                  "body": [],
+                  "cookie": [],
+                  "header": []
+                },
+                "responses": [
+                  {
+                    "id": "179018337",
+                    "code": "200",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {
+                        "data": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/definitions/13523363"
+                          }
+                        }
+                      },
+                      "x-apidog-orders": [
+                        "data"
+                      ]
+                    },
+                    "itemSchema": {},
+                    "description": "Список опубликованных опросов",
+                    "contentType": "json",
+                    "mediaType": "application/json",
+                    "oasExtensions": ""
+                  }
+                ],
+                "responseExamples": [],
+                "requestBody": {
+                  "type": "none",
+                  "parameters": [],
+                  "required": false,
+                  "mediaType": "",
+                  "examples": [],
+                  "oasExtensions": ""
+                },
+                "description": "Возвращает список всех опубликованных опросов.\n\n### Доступ\n\n**Публичный эндпоинт** — аутентификация не требуется.\n\n### Пример ответа\n\n```json\n{\n  \"data\": [\n    {\n      \"id\": 1,\n      \"title\": \"Опрос удовлетворённости\",\n      \"description\": \"Помогите нам стать лучше\",\n      \"status\": 2,\n      \"created_at\": \"2026-03-01T10:00:00Z\"\n    }\n  ]\n}\n```",
+                "tags": [
+                  "Surveys"
+                ],
+                "status": "released",
+                "serverId": "",
+                "operationId": "",
+                "sourceUrl": "",
+                "ordering": 6,
+                "cases": [
+                  {
+                    "id": 41852968,
+                    "type": "DEBUG_CASE",
+                    "path": null,
+                    "name": "Success",
+                    "responseId": "179018337",
+                    "parameters": {
+                      "path": [],
+                      "query": [],
+                      "cookie": [],
+                      "header": []
+                    },
+                    "commonParameters": {},
+                    "requestBody": {
+                      "parameters": [],
+                      "type": "none",
+                      "generateMode": "normal"
+                    },
+                    "auth": {},
+                    "securityScheme": {},
+                    "advancedSettings": {
+                      "disabledSystemHeaders": {}
+                    },
+                    "requestResult": null,
+                    "visibility": "INHERITED",
+                    "moduleId": 1131474,
+                    "categoryId": 0,
+                    "tagIds": [],
+                    "apiTestDataList": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "inheritPostProcessors": {
+                      "enable": {},
+                      "defaultEnable": {}
+                    },
+                    "inheritPreProcessors": {
+                      "enable": {},
+                      "defaultEnable": {}
+                    }
+                  }
+                ],
+                "mocks": [],
+                "customApiFields": "{}",
+                "advancedSettings": {
+                  "disabledSystemHeaders": {}
+                },
+                "mockScript": {},
+                "codeSamples": [],
+                "commonResponseStatus": {},
+                "responseChildren": [],
+                "visibility": "INHERITED",
+                "moduleId": 1131474,
+                "oasExtensions": "",
+                "type": "http",
+                "preProcessors": [],
+                "postProcessors": [],
+                "inheritPostProcessors": {
+                  "enable": {},
+                  "defaultEnable": {}
+                },
+                "inheritPreProcessors": {
+                  "enable": {},
+                  "defaultEnable": {}
+                }
+              }
+            },
+            {
+              "name": "Создать новый опрос",
+              "api": {
+                "id": "30779308",
+                "method": "post",
+                "path": "/surveys",
+                "parameters": {
+                  "query": [],
+                  "path": [],
+                  "cookie": [],
+                  "header": []
+                },
+                "auth": {
+                  "type": "securityscheme"
+                },
+                "securityScheme": {
+                  "schemeGroups": [
+                    {
+                      "id": "zSeZXm2-2y7ct9WNR3fOT",
+                      "schemeIds": [
+                        493507
+                      ]
+                    }
+                  ],
+                  "required": true,
+                  "use": {
+                    "id": "zSeZXm2-2y7ct9WNR3fOT",
+                    "configs": {
+                      "493507": {
+                        "authConfigs": {
+                          "x-apidog": {
+                            "token": "{{bearerToken}}"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "scopes": {
+                    "zSeZXm2-2y7ct9WNR3fOT": {
+                      "493507": []
+                    }
+                  }
+                },
+                "commonParameters": {
+                  "query": [],
+                  "body": [],
+                  "cookie": [],
+                  "header": []
+                },
+                "responses": [
+                  {
+                    "id": "101222395",
+                    "code": "201",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "itemSchema": {},
+                    "description": "Опрос успешно создан",
+                    "contentType": "noContent",
+                    "mediaType": "",
+                    "oasExtensions": ""
+                  },
+                  {
+                    "id": "137521632",
+                    "code": "401",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "itemSchema": {},
+                    "description": "Требуется аутентификация",
+                    "contentType": "noContent",
+                    "mediaType": "",
+                    "oasExtensions": ""
+                  },
+                  {
+                    "id": "158267424",
+                    "code": "422",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "itemSchema": {},
+                    "description": "Ошибка валидации данных",
+                    "contentType": "noContent",
+                    "mediaType": "",
+                    "oasExtensions": ""
+                  }
+                ],
+                "responseExamples": [],
+                "requestBody": {
+                  "type": "application/json",
+                  "parameters": [],
+                  "jsonSchema": {
+                    "type": "object",
+                    "required": [
+                      "title"
+                    ],
+                    "properties": {
+                      "title": {
+                        "type": "string",
+                        "description": "Название опроса",
+                        "examples": [
+                          "Опрос удовлетворённости клиентов"
+                        ]
+                      },
+                      "description": {
+                        "type": "string",
+                        "description": "Описание опроса (необязательно)",
+                        "examples": [
+                          "Помогите нам улучшить наш сервис"
+                        ]
+                      }
+                    },
+                    "x-apidog-orders": [
+                      "title",
+                      "description"
+                    ]
+                  },
+                  "required": true,
+                  "mediaType": "application/json",
+                  "examples": [
+                    {
+                      "value": "{\n    \"title\": \"Опрос удовлетворённости клиентов\",\n    \"description\": \"Помогите нам улучшить наш сервис\"\n}",
+                      "mediaType": "application/json",
+                      "description": ""
+                    }
+                  ],
+                  "oasExtensions": ""
+                },
+                "description": "Создаёт новый опрос в статусе «черновик».\n\n### Требования\n\n- Только авторизованные пользователи с ролью **author** могут создавать опросы\n- Название опроса обязательно\n- Новый опрос создаётся в статусе **draft** (черновик)\n\n### Пример ответа\n\n```json\n{\n  \"id\": 1,\n  \"author_id\": 1,\n  \"title\": \"Мой опрос\",\n  \"description\": \"Описание опроса\",\n  \"status\": 1,\n  \"created_at\": \"2026-03-01T10:00:00Z\"\n}\n```",
+                "tags": [
+                  "Surveys"
+                ],
+                "status": "released",
+                "serverId": "",
+                "operationId": "",
+                "sourceUrl": "",
+                "ordering": 12,
+                "cases": [
+                  {
+                    "id": 41852969,
+                    "type": "DEBUG_CASE",
+                    "path": null,
+                    "name": "Success",
+                    "responseId": "101222395",
+                    "parameters": {
+                      "path": [],
+                      "query": [],
+                      "cookie": [],
+                      "header": []
+                    },
+                    "commonParameters": {},
+                    "requestBody": {
+                      "parameters": [],
+                      "data": "{\n    \"title\": \"Опрос удовлетворённости клиентов\",\n    \"description\": \"Помогите нам улучшить наш сервис\"\n}",
+                      "type": "application/json",
+                      "generateMode": "normal"
+                    },
+                    "auth": {},
+                    "securityScheme": {},
+                    "advancedSettings": {
+                      "disabledSystemHeaders": {}
+                    },
+                    "requestResult": null,
+                    "visibility": "INHERITED",
+                    "moduleId": 1131474,
+                    "categoryId": 0,
+                    "tagIds": [],
+                    "apiTestDataList": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "inheritPostProcessors": {
+                      "enable": {},
+                      "defaultEnable": {}
+                    },
+                    "inheritPreProcessors": {
+                      "enable": {},
+                      "defaultEnable": {}
+                    }
+                  }
+                ],
+                "mocks": [],
+                "customApiFields": "{}",
+                "advancedSettings": {
+                  "disabledSystemHeaders": {}
+                },
+                "mockScript": {},
+                "codeSamples": [],
+                "commonResponseStatus": {},
+                "responseChildren": [],
+                "visibility": "INHERITED",
+                "moduleId": 1131474,
+                "oasExtensions": "",
+                "type": "http",
+                "preProcessors": [],
+                "postProcessors": [],
+                "inheritPostProcessors": {
+                  "enable": {},
+                  "defaultEnable": {}
+                },
+                "inheritPreProcessors": {
+                  "enable": {},
+                  "defaultEnable": {}
+                }
+              }
+            },
+            {
+              "name": "Получить детали опроса",
+              "api": {
+                "id": "30779309",
+                "method": "get",
+                "path": "/surveys/{id}",
+                "parameters": {
+                  "query": [],
+                  "path": [
+                    {
+                      "id": "id#0",
+                      "name": "id",
+                      "required": true,
+                      "enable": true,
+                      "description": "ID опроса",
+                      "example": "",
+                      "type": "integer",
+                      "schema": {
+                        "type": "integer"
+                      }
+                    }
+                  ],
+                  "cookie": [],
+                  "header": []
+                },
+                "auth": {},
+                "securityScheme": {},
+                "commonParameters": {
+                  "query": [],
+                  "body": [],
+                  "cookie": [],
+                  "header": []
+                },
+                "responses": [
+                  {
+                    "id": "150542159",
+                    "code": "200",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "itemSchema": {},
+                    "description": "Детали опроса",
+                    "contentType": "noContent",
+                    "mediaType": "",
+                    "oasExtensions": ""
+                  },
+                  {
+                    "id": "149337392",
+                    "code": "404",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "itemSchema": {},
+                    "description": "Опрос не найден или не опубликован",
+                    "contentType": "noContent",
+                    "mediaType": "",
+                    "oasExtensions": ""
+                  }
+                ],
+                "responseExamples": [],
+                "requestBody": {
+                  "type": "none",
+                  "parameters": [],
+                  "required": false,
+                  "mediaType": "",
+                  "examples": [],
+                  "oasExtensions": ""
+                },
+                "description": "Возвращает полную информацию об опросе, включая вопросы и варианты ответов.\n\n### Доступ\n\n**Публичный эндпоинт** — доступны только опубликованные опросы.\n\n### Пример ответа\n\n```json\n{\n  \"id\": 1,\n  \"title\": \"Опрос\",\n  \"questions\": [\n    {\n      \"id\": 1,\n      \"text\": \"Ваш возраст?\",\n      \"type\": \"single_choice\",\n      \"options\": [\n        {\"id\": 1, \"text\": \"18-25\"},\n        {\"id\": 2, \"text\": \"26-35\"}\n      ]\n    }\n  ]\n}\n```",
+                "tags": [
+                  "Surveys"
+                ],
+                "status": "released",
+                "serverId": "",
+                "operationId": "",
+                "sourceUrl": "",
+                "ordering": 18,
+                "cases": [
+                  {
+                    "id": 41852970,
+                    "type": "DEBUG_CASE",
+                    "path": null,
+                    "name": "Success",
+                    "responseId": "150542159",
+                    "parameters": {
+                      "path": [
+                        {
+                          "id": "id#0",
+                          "relatedId": "id#0",
+                          "relatedName": "id",
+                          "name": "id",
+                          "value": "",
+                          "enable": true
+                        }
+                      ],
+                      "query": [],
+                      "cookie": [],
+                      "header": []
+                    },
+                    "commonParameters": {},
+                    "requestBody": {
+                      "parameters": [],
+                      "type": "none",
+                      "generateMode": "normal"
+                    },
+                    "auth": {},
+                    "securityScheme": {},
+                    "advancedSettings": {
+                      "disabledSystemHeaders": {}
+                    },
+                    "requestResult": null,
+                    "visibility": "INHERITED",
+                    "moduleId": 1131474,
+                    "categoryId": 0,
+                    "tagIds": [],
+                    "apiTestDataList": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "inheritPostProcessors": {
+                      "enable": {},
+                      "defaultEnable": {}
+                    },
+                    "inheritPreProcessors": {
+                      "enable": {},
+                      "defaultEnable": {}
+                    }
+                  }
+                ],
+                "mocks": [],
+                "customApiFields": "{}",
+                "advancedSettings": {
+                  "disabledSystemHeaders": {}
+                },
+                "mockScript": {},
+                "codeSamples": [],
+                "commonResponseStatus": {},
+                "responseChildren": [],
+                "visibility": "INHERITED",
+                "moduleId": 1131474,
+                "oasExtensions": "",
+                "type": "http",
+                "preProcessors": [],
+                "postProcessors": [],
+                "inheritPostProcessors": {
+                  "enable": {},
+                  "defaultEnable": {}
+                },
+                "inheritPreProcessors": {
+                  "enable": {},
+                  "defaultEnable": {}
+                }
+              }
+            },
+            {
+              "name": "Редактировать опрос",
+              "api": {
+                "id": "30779310",
+                "method": "put",
+                "path": "/surveys/{id}",
+                "parameters": {
+                  "query": [],
+                  "path": [
+                    {
+                      "id": "id#0",
+                      "name": "id",
+                      "required": true,
+                      "enable": true,
+                      "description": "ID опроса",
+                      "example": "",
+                      "type": "integer",
+                      "schema": {
+                        "type": "integer"
+                      }
+                    }
+                  ],
+                  "cookie": [],
+                  "header": []
+                },
+                "auth": {
+                  "type": "securityscheme"
+                },
+                "securityScheme": {
+                  "schemeGroups": [
+                    {
+                      "id": "3SLHZx9fXT8oqakfnmT-M",
+                      "schemeIds": [
+                        493507
+                      ]
+                    }
+                  ],
+                  "required": true,
+                  "use": {
+                    "id": "3SLHZx9fXT8oqakfnmT-M",
+                    "configs": {
+                      "493507": {
+                        "authConfigs": {
+                          "x-apidog": {
+                            "token": "{{bearerToken}}"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "scopes": {
+                    "3SLHZx9fXT8oqakfnmT-M": {
+                      "493507": []
+                    }
+                  }
+                },
+                "commonParameters": {
+                  "query": [],
+                  "body": [],
+                  "cookie": [],
+                  "header": []
+                },
+                "responses": [
+                  {
+                    "id": "118125472",
+                    "code": "200",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "itemSchema": {},
+                    "description": "Опрос успешно обновлён",
+                    "contentType": "noContent",
+                    "mediaType": "",
+                    "oasExtensions": ""
+                  },
+                  {
+                    "id": "142800059",
+                    "code": "403",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "itemSchema": {},
+                    "description": "Доступ запрещён (не автор или опрос опубликован)",
+                    "contentType": "noContent",
+                    "mediaType": "",
+                    "oasExtensions": ""
+                  },
+                  {
+                    "id": "104688528",
+                    "code": "404",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "itemSchema": {},
+                    "description": "Опрос не найден",
+                    "contentType": "noContent",
+                    "mediaType": "",
+                    "oasExtensions": ""
+                  }
+                ],
+                "responseExamples": [],
+                "requestBody": {
+                  "type": "application/json",
+                  "parameters": [],
+                  "jsonSchema": {
+                    "type": "object",
+                    "properties": {
+                      "title": {
+                        "type": "string",
+                        "description": "Новое название опроса"
+                      },
+                      "description": {
+                        "type": "string",
+                        "description": "Новое описание опроса"
+                      }
+                    },
+                    "x-apidog-orders": [
+                      "title",
+                      "description"
+                    ]
+                  },
+                  "required": false,
+                  "mediaType": "application/json",
+                  "examples": [],
+                  "oasExtensions": ""
+                },
+                "description": "Обновляет информацию об опросе.\n\n### Ограничения\n\n- Можно редактировать только опросы в статусе **draft** (черновик)\n- После публикации структура опроса не может быть изменена\n- Только автор опроса может редактировать\n\n### Пример\n\n**Запрос:**\n```json\n{\n  \"title\": \"Обновлённое название\",\n  \"description\": \"Новое описание\"\n}\n```",
+                "tags": [
+                  "Surveys"
+                ],
+                "status": "released",
+                "serverId": "",
+                "operationId": "",
+                "sourceUrl": "",
+                "ordering": 24,
+                "cases": [
+                  {
+                    "id": 41852971,
+                    "type": "DEBUG_CASE",
+                    "path": null,
+                    "name": "Success",
+                    "responseId": "118125472",
+                    "parameters": {
+                      "path": [
+                        {
+                          "id": "id#0",
+                          "relatedId": "id#0",
+                          "relatedName": "id",
+                          "name": "id",
+                          "value": "",
+                          "enable": true
+                        }
+                      ],
+                      "query": [],
+                      "cookie": [],
+                      "header": []
+                    },
+                    "commonParameters": {},
+                    "requestBody": {
+                      "parameters": [],
+                      "data": "",
+                      "type": "application/json",
+                      "generateMode": "normal"
+                    },
+                    "auth": {},
+                    "securityScheme": {},
+                    "advancedSettings": {
+                      "disabledSystemHeaders": {}
+                    },
+                    "requestResult": null,
+                    "visibility": "INHERITED",
+                    "moduleId": 1131474,
+                    "categoryId": 0,
+                    "tagIds": [],
+                    "apiTestDataList": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "inheritPostProcessors": {
+                      "enable": {},
+                      "defaultEnable": {}
+                    },
+                    "inheritPreProcessors": {
+                      "enable": {},
+                      "defaultEnable": {}
+                    }
+                  }
+                ],
+                "mocks": [],
+                "customApiFields": "{}",
+                "advancedSettings": {
+                  "disabledSystemHeaders": {}
+                },
+                "mockScript": {},
+                "codeSamples": [],
+                "commonResponseStatus": {},
+                "responseChildren": [],
+                "visibility": "INHERITED",
+                "moduleId": 1131474,
+                "oasExtensions": "",
+                "type": "http",
+                "preProcessors": [],
+                "postProcessors": [],
+                "inheritPostProcessors": {
+                  "enable": {},
+                  "defaultEnable": {}
+                },
+                "inheritPreProcessors": {
+                  "enable": {},
+                  "defaultEnable": {}
+                }
+              }
+            },
+            {
+              "name": "Удалить опрос",
+              "api": {
+                "id": "30779311",
+                "method": "delete",
+                "path": "/surveys/{id}",
+                "parameters": {
+                  "query": [],
+                  "path": [
+                    {
+                      "id": "id#0",
+                      "name": "id",
+                      "required": true,
+                      "enable": true,
+                      "description": "ID опроса",
+                      "example": "",
+                      "type": "integer",
+                      "schema": {
+                        "type": "integer"
+                      }
+                    }
+                  ],
+                  "cookie": [],
+                  "header": []
+                },
+                "auth": {
+                  "type": "securityscheme"
+                },
+                "securityScheme": {
+                  "schemeGroups": [
+                    {
+                      "id": "g43vyncWdklbFvuLB8voT",
+                      "schemeIds": [
+                        493507
+                      ]
+                    }
+                  ],
+                  "required": true,
+                  "use": {
+                    "id": "g43vyncWdklbFvuLB8voT",
+                    "configs": {
+                      "493507": {
+                        "authConfigs": {
+                          "x-apidog": {
+                            "token": "{{bearerToken}}"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "scopes": {
+                    "g43vyncWdklbFvuLB8voT": {
+                      "493507": []
+                    }
+                  }
+                },
+                "commonParameters": {
+                  "query": [],
+                  "body": [],
+                  "cookie": [],
+                  "header": []
+                },
+                "responses": [
+                  {
+                    "id": "153425346",
+                    "code": "200",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "itemSchema": {},
+                    "description": "Опрос успешно удалён",
+                    "contentType": "noContent",
+                    "mediaType": "",
+                    "oasExtensions": ""
+                  },
+                  {
+                    "id": "137496684",
+                    "code": "403",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "itemSchema": {},
+                    "description": "Доступ запрещён",
+                    "contentType": "noContent",
+                    "mediaType": "",
+                    "oasExtensions": ""
+                  },
+                  {
+                    "id": "129292292",
+                    "code": "404",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "itemSchema": {},
+                    "description": "Опрос не найден",
+                    "contentType": "noContent",
+                    "mediaType": "",
+                    "oasExtensions": ""
+                  }
+                ],
+                "responseExamples": [],
+                "requestBody": {
+                  "type": "none",
+                  "parameters": [],
+                  "required": false,
+                  "mediaType": "",
+                  "examples": [],
+                  "oasExtensions": ""
+                },
+                "description": "Удаляет опрос и все связанные данные (вопросы, варианты, ответы).\n\n### Доступ\n\n- **Author** — может удалять только свои опросы\n- **Admin** — может удалять любые опросы\n\n### Важно\n\nЭто действие необратимо! Все данные опроса будут удалены.",
+                "tags": [
+                  "Surveys"
+                ],
+                "status": "released",
+                "serverId": "",
+                "operationId": "",
+                "sourceUrl": "",
+                "ordering": 30,
+                "cases": [
+                  {
+                    "id": 41852972,
+                    "type": "DEBUG_CASE",
+                    "path": null,
+                    "name": "Success",
+                    "responseId": "153425346",
+                    "parameters": {
+                      "path": [
+                        {
+                          "id": "id#0",
+                          "relatedId": "id#0",
+                          "relatedName": "id",
+                          "name": "id",
+                          "value": "",
+                          "enable": true
+                        }
+                      ],
+                      "query": [],
+                      "cookie": [],
+                      "header": []
+                    },
+                    "commonParameters": {},
+                    "requestBody": {
+                      "parameters": [],
+                      "type": "none",
+                      "generateMode": "normal"
+                    },
+                    "auth": {},
+                    "securityScheme": {},
+                    "advancedSettings": {
+                      "disabledSystemHeaders": {}
+                    },
+                    "requestResult": null,
+                    "visibility": "INHERITED",
+                    "moduleId": 1131474,
+                    "categoryId": 0,
+                    "tagIds": [],
+                    "apiTestDataList": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "inheritPostProcessors": {
+                      "enable": {},
+                      "defaultEnable": {}
+                    },
+                    "inheritPreProcessors": {
+                      "enable": {},
+                      "defaultEnable": {}
+                    }
+                  }
+                ],
+                "mocks": [],
+                "customApiFields": "{}",
+                "advancedSettings": {
+                  "disabledSystemHeaders": {}
+                },
+                "mockScript": {},
+                "codeSamples": [],
+                "commonResponseStatus": {},
+                "responseChildren": [],
+                "visibility": "INHERITED",
+                "moduleId": 1131474,
+                "oasExtensions": "",
+                "type": "http",
+                "preProcessors": [],
+                "postProcessors": [],
+                "inheritPostProcessors": {
+                  "enable": {},
+                  "defaultEnable": {}
+                },
+                "inheritPreProcessors": {
+                  "enable": {},
+                  "defaultEnable": {}
+                }
+              }
+            },
+            {
+              "name": "Опубликовать опрос",
+              "api": {
+                "id": "30779312",
+                "method": "post",
+                "path": "/surveys/{id}/publish",
+                "parameters": {
+                  "query": [],
+                  "path": [
+                    {
+                      "id": "id#0",
+                      "name": "id",
+                      "required": true,
+                      "enable": true,
+                      "description": "ID опроса",
+                      "example": "",
+                      "type": "integer",
+                      "schema": {
+                        "type": "integer"
+                      }
+                    }
+                  ],
+                  "cookie": [],
+                  "header": []
+                },
+                "auth": {
+                  "type": "securityscheme"
+                },
+                "securityScheme": {
+                  "schemeGroups": [
+                    {
+                      "id": "IE6nmy4VKBgcHsOFqnFx6",
+                      "schemeIds": [
+                        493507
+                      ]
+                    }
+                  ],
+                  "required": true,
+                  "use": {
+                    "id": "IE6nmy4VKBgcHsOFqnFx6",
+                    "configs": {
+                      "493507": {
+                        "authConfigs": {
+                          "x-apidog": {
+                            "token": "{{bearerToken}}"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "scopes": {
+                    "IE6nmy4VKBgcHsOFqnFx6": {
+                      "493507": []
+                    }
+                  }
+                },
+                "commonParameters": {
+                  "query": [],
+                  "body": [],
+                  "cookie": [],
+                  "header": []
+                },
+                "responses": [
+                  {
+                    "id": "114176967",
+                    "code": "200",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "examples": [
+                            "Survey published successfully"
+                          ]
+                        },
+                        "survey": {
+                          "$ref": "#/definitions/13523363"
+                        }
+                      },
+                      "x-apidog-orders": [
+                        "message",
+                        "survey"
+                      ]
+                    },
+                    "itemSchema": {},
+                    "description": "Опрос успешно опубликован",
+                    "contentType": "json",
+                    "mediaType": "application/json",
+                    "oasExtensions": ""
+                  },
+                  {
+                    "id": "101834290",
+                    "code": "403",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "itemSchema": {},
+                    "description": "Доступ запрещён",
+                    "contentType": "noContent",
+                    "mediaType": "",
+                    "oasExtensions": ""
+                  },
+                  {
+                    "id": "162381812",
+                    "code": "404",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "itemSchema": {},
+                    "description": "Опрос не найден",
+                    "contentType": "noContent",
+                    "mediaType": "",
+                    "oasExtensions": ""
+                  }
+                ],
+                "responseExamples": [],
+                "requestBody": {
+                  "type": "none",
+                  "parameters": [],
+                  "required": false,
+                  "mediaType": "",
+                  "examples": [],
+                  "oasExtensions": ""
+                },
+                "description": "Публикует опрос, делая его доступным для прохождения респондентами.\n\n### Важные моменты\n\n- После публикации **нельзя редактировать** структуру опроса (вопросы и варианты)\n- Можно только закрыть опрос или удалить\n- Статус меняется с **draft** на **published**\n\n### Доступ\n\nТолько автор опроса может опубликовать свой опрос.",
+                "tags": [
+                  "Surveys"
+                ],
+                "status": "released",
+                "serverId": "",
+                "operationId": "",
+                "sourceUrl": "",
+                "ordering": 36,
+                "cases": [
+                  {
+                    "id": 41852973,
+                    "type": "DEBUG_CASE",
+                    "path": null,
+                    "name": "Success",
+                    "responseId": "114176967",
+                    "parameters": {
+                      "path": [
+                        {
+                          "id": "id#0",
+                          "relatedId": "id#0",
+                          "relatedName": "id",
+                          "name": "id",
+                          "value": "",
+                          "enable": true
+                        }
+                      ],
+                      "query": [],
+                      "cookie": [],
+                      "header": []
+                    },
+                    "commonParameters": {},
+                    "requestBody": {
+                      "parameters": [],
+                      "type": "none",
+                      "generateMode": "normal"
+                    },
+                    "auth": {},
+                    "securityScheme": {},
+                    "advancedSettings": {
+                      "disabledSystemHeaders": {}
+                    },
+                    "requestResult": null,
+                    "visibility": "INHERITED",
+                    "moduleId": 1131474,
+                    "categoryId": 0,
+                    "tagIds": [],
+                    "apiTestDataList": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "inheritPostProcessors": {
+                      "enable": {},
+                      "defaultEnable": {}
+                    },
+                    "inheritPreProcessors": {
+                      "enable": {},
+                      "defaultEnable": {}
+                    }
+                  }
+                ],
+                "mocks": [],
+                "customApiFields": "{}",
+                "advancedSettings": {
+                  "disabledSystemHeaders": {}
+                },
+                "mockScript": {},
+                "codeSamples": [],
+                "commonResponseStatus": {},
+                "responseChildren": [],
+                "visibility": "INHERITED",
+                "moduleId": 1131474,
+                "oasExtensions": "",
+                "type": "http",
+                "preProcessors": [],
+                "postProcessors": [],
+                "inheritPostProcessors": {
+                  "enable": {},
+                  "defaultEnable": {}
+                },
+                "inheritPreProcessors": {
+                  "enable": {},
+                  "defaultEnable": {}
+                }
+              }
+            },
+            {
+              "name": "Закрыть опрос",
+              "api": {
+                "id": "30779313",
+                "method": "post",
+                "path": "/surveys/{id}/close",
+                "parameters": {
+                  "query": [],
+                  "path": [
+                    {
+                      "id": "id#0",
+                      "name": "id",
+                      "required": true,
+                      "enable": true,
+                      "description": "ID опроса",
+                      "example": "",
+                      "type": "integer",
+                      "schema": {
+                        "type": "integer"
+                      }
+                    }
+                  ],
+                  "cookie": [],
+                  "header": []
+                },
+                "auth": {
+                  "type": "securityscheme"
+                },
+                "securityScheme": {
+                  "schemeGroups": [
+                    {
+                      "id": "mqf7BlRFKeqHQnELOqDXQ",
+                      "schemeIds": [
+                        493507
+                      ]
+                    }
+                  ],
+                  "required": true,
+                  "use": {
+                    "id": "mqf7BlRFKeqHQnELOqDXQ",
+                    "configs": {
+                      "493507": {
+                        "authConfigs": {
+                          "x-apidog": {
+                            "token": "{{bearerToken}}"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "scopes": {
+                    "mqf7BlRFKeqHQnELOqDXQ": {
+                      "493507": []
+                    }
+                  }
+                },
+                "commonParameters": {
+                  "query": [],
+                  "body": [],
+                  "cookie": [],
+                  "header": []
+                },
+                "responses": [
+                  {
+                    "id": "123741682",
+                    "code": "200",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "itemSchema": {},
+                    "description": "Опрос успешно закрыт",
+                    "contentType": "noContent",
+                    "mediaType": "",
+                    "oasExtensions": ""
+                  },
+                  {
+                    "id": "107572611",
+                    "code": "403",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "itemSchema": {},
+                    "description": "Доступ запрещён",
+                    "contentType": "noContent",
+                    "mediaType": "",
+                    "oasExtensions": ""
+                  },
+                  {
+                    "id": "162908811",
+                    "code": "404",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "itemSchema": {},
+                    "description": "Опрос не найден",
+                    "contentType": "noContent",
+                    "mediaType": "",
+                    "oasExtensions": ""
+                  }
+                ],
+                "responseExamples": [],
+                "requestBody": {
+                  "type": "none",
+                  "parameters": [],
+                  "required": false,
+                  "mediaType": "",
+                  "examples": [],
+                  "oasExtensions": ""
+                },
+                "description": "Закрывает опрос, запрещая новые ответы.\n\n### Важные моменты\n\n- Закрытый опрос **нельзя пройти** повторно\n- Статус меняется на **closed**\n- Результаты остаются доступными для просмотра\n\n### Доступ\n\nТолько автор опроса может закрыть свой опрос.",
+                "tags": [
+                  "Surveys"
+                ],
+                "status": "released",
+                "serverId": "",
+                "operationId": "",
+                "sourceUrl": "",
+                "ordering": 42,
+                "cases": [
+                  {
+                    "id": 41852974,
+                    "type": "DEBUG_CASE",
+                    "path": null,
+                    "name": "Success",
+                    "responseId": "123741682",
+                    "parameters": {
+                      "path": [
+                        {
+                          "id": "id#0",
+                          "relatedId": "id#0",
+                          "relatedName": "id",
+                          "name": "id",
+                          "value": "",
+                          "enable": true
+                        }
+                      ],
+                      "query": [],
+                      "cookie": [],
+                      "header": []
+                    },
+                    "commonParameters": {},
+                    "requestBody": {
+                      "parameters": [],
+                      "type": "none",
+                      "generateMode": "normal"
+                    },
+                    "auth": {},
+                    "securityScheme": {},
+                    "advancedSettings": {
+                      "disabledSystemHeaders": {}
+                    },
+                    "requestResult": null,
+                    "visibility": "INHERITED",
+                    "moduleId": 1131474,
+                    "categoryId": 0,
+                    "tagIds": [],
+                    "apiTestDataList": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "inheritPostProcessors": {
+                      "enable": {},
+                      "defaultEnable": {}
+                    },
+                    "inheritPreProcessors": {
+                      "enable": {},
+                      "defaultEnable": {}
+                    }
+                  }
+                ],
+                "mocks": [],
+                "customApiFields": "{}",
+                "advancedSettings": {
+                  "disabledSystemHeaders": {}
+                },
+                "mockScript": {},
+                "codeSamples": [],
+                "commonResponseStatus": {},
+                "responseChildren": [],
+                "visibility": "INHERITED",
+                "moduleId": 1131474,
+                "oasExtensions": "",
+                "type": "http",
+                "preProcessors": [],
+                "postProcessors": [],
+                "inheritPostProcessors": {
+                  "enable": {},
+                  "defaultEnable": {}
+                },
+                "inheritPreProcessors": {
+                  "enable": {},
+                  "defaultEnable": {}
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Questions",
+          "id": 7258349,
+          "auth": {},
+          "securityScheme": {},
+          "parentId": 0,
+          "serverId": "",
+          "description": "",
+          "identityPattern": {
+            "httpApi": {
+              "type": "inherit",
+              "bodyType": "",
+              "fields": []
+            }
+          },
+          "shareSettings": {},
+          "visibility": "INHERITED",
+          "moduleId": 1131474,
+          "preProcessors": [
+            {
+              "id": "inheritProcessors",
+              "type": "inheritProcessors",
+              "data": {}
+            }
+          ],
+          "postProcessors": [
+            {
+              "id": "inheritProcessors",
+              "type": "inheritProcessors",
+              "data": {}
+            }
+          ],
+          "inheritPostProcessors": {},
+          "inheritPreProcessors": {},
+          "items": [
+            {
+              "name": "Добавить вопрос к опросу",
+              "api": {
+                "id": "30779314",
+                "method": "post",
+                "path": "/surveys/{id}/questions",
+                "parameters": {
+                  "query": [],
+                  "path": [
+                    {
+                      "id": "id#0",
+                      "name": "id",
+                      "required": true,
+                      "enable": true,
+                      "description": "ID опроса",
+                      "example": "",
+                      "type": "integer",
+                      "schema": {
+                        "type": "integer"
+                      }
+                    }
+                  ],
+                  "cookie": [],
+                  "header": []
+                },
+                "auth": {
+                  "type": "securityscheme"
+                },
+                "securityScheme": {
+                  "schemeGroups": [
+                    {
+                      "id": "Y3KxWaQT0fiY8WIyg7OZN",
+                      "schemeIds": [
+                        493507
+                      ]
+                    }
+                  ],
+                  "required": true,
+                  "use": {
+                    "id": "Y3KxWaQT0fiY8WIyg7OZN",
+                    "configs": {
+                      "493507": {
+                        "authConfigs": {
+                          "x-apidog": {
+                            "token": "{{bearerToken}}"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "scopes": {
+                    "Y3KxWaQT0fiY8WIyg7OZN": {
+                      "493507": []
+                    }
+                  }
+                },
+                "commonParameters": {
+                  "query": [],
+                  "body": [],
+                  "cookie": [],
+                  "header": []
+                },
+                "responses": [
+                  {
+                    "id": "151090576",
+                    "code": "201",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "itemSchema": {},
+                    "description": "Вопрос успешно создан",
+                    "contentType": "noContent",
+                    "mediaType": "",
+                    "oasExtensions": ""
+                  },
+                  {
+                    "id": "153446706",
+                    "code": "403",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "itemSchema": {},
+                    "description": "Доступ запрещён или опрос опубликован",
+                    "contentType": "noContent",
+                    "mediaType": "",
+                    "oasExtensions": ""
+                  },
+                  {
+                    "id": "104191017",
+                    "code": "422",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "itemSchema": {},
+                    "description": "Ошибка валидации",
+                    "contentType": "noContent",
+                    "mediaType": "",
+                    "oasExtensions": ""
+                  }
+                ],
+                "responseExamples": [],
+                "requestBody": {
+                  "type": "application/json",
+                  "parameters": [],
+                  "jsonSchema": {
+                    "type": "object",
+                    "required": [
+                      "type",
+                      "text"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "single_choice",
+                          "multiple_choice",
+                          "text_answer"
+                        ],
+                        "description": "Тип вопроса",
+                        "examples": [
+                          "single_choice"
+                        ]
+                      },
+                      "text": {
+                        "type": "string",
+                        "description": "Текст вопроса",
+                        "examples": [
+                          "Какой ваш любимый цвет?"
+                        ]
+                      },
+                      "order": {
+                        "type": "integer",
+                        "description": "Порядок отображения",
+                        "examples": [
+                          1
+                        ]
+                      },
+                      "required": {
+                        "type": "boolean",
+                        "description": "Обязательный ли вопрос",
+                        "examples": [
+                          true
+                        ]
+                      }
+                    },
+                    "x-apidog-orders": [
+                      "type",
+                      "text",
+                      "order",
+                      "required"
+                    ]
+                  },
+                  "required": true,
+                  "mediaType": "application/json",
+                  "examples": [
+                    {
+                      "value": "{\n    \"type\": \"single_choice\",\n    \"text\": \"Какой ваш любимый цвет?\",\n    \"order\": 1,\n    \"required\": true\n}",
+                      "mediaType": "application/json",
+                      "description": ""
+                    }
+                  ],
+                  "oasExtensions": ""
+                },
+                "description": "Добавляет новый вопрос к опросу.\n\n### Типы вопросов\n\n| Тип | Описание | Требуемые данные |\n|-----|----------|------------------|\n| `single_choice` | Один вариант из нескольких | `options` (массив вариантов) |\n| `multiple_choice` | Несколько вариантов | `options` (массив вариантов) |\n| `text_answer` | Текстовый ответ | Не требуется |\n\n### Ограничения\n\n- Можно добавлять вопросы только к опросам в статусе **draft**\n- Поле `required` определяет, обязательно ли отвечать на вопрос",
+                "tags": [
+                  "Questions"
+                ],
+                "status": "released",
+                "serverId": "",
+                "operationId": "",
+                "sourceUrl": "",
+                "ordering": 6,
+                "cases": [
+                  {
+                    "id": 41852975,
+                    "type": "DEBUG_CASE",
+                    "path": null,
+                    "name": "Success",
+                    "responseId": "151090576",
+                    "parameters": {
+                      "path": [
+                        {
+                          "id": "id#0",
+                          "relatedId": "id#0",
+                          "relatedName": "id",
+                          "name": "id",
+                          "value": "",
+                          "enable": true
+                        }
+                      ],
+                      "query": [],
+                      "cookie": [],
+                      "header": []
+                    },
+                    "commonParameters": {},
+                    "requestBody": {
+                      "parameters": [],
+                      "data": "{\n    \"type\": \"single_choice\",\n    \"text\": \"Какой ваш любимый цвет?\",\n    \"order\": 1,\n    \"required\": true\n}",
+                      "type": "application/json",
+                      "generateMode": "normal"
+                    },
+                    "auth": {},
+                    "securityScheme": {},
+                    "advancedSettings": {
+                      "disabledSystemHeaders": {}
+                    },
+                    "requestResult": null,
+                    "visibility": "INHERITED",
+                    "moduleId": 1131474,
+                    "categoryId": 0,
+                    "tagIds": [],
+                    "apiTestDataList": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "inheritPostProcessors": {
+                      "enable": {},
+                      "defaultEnable": {}
+                    },
+                    "inheritPreProcessors": {
+                      "enable": {},
+                      "defaultEnable": {}
+                    }
+                  }
+                ],
+                "mocks": [],
+                "customApiFields": "{}",
+                "advancedSettings": {
+                  "disabledSystemHeaders": {}
+                },
+                "mockScript": {},
+                "codeSamples": [],
+                "commonResponseStatus": {},
+                "responseChildren": [],
+                "visibility": "INHERITED",
+                "moduleId": 1131474,
+                "oasExtensions": "",
+                "type": "http",
+                "preProcessors": [],
+                "postProcessors": [],
+                "inheritPostProcessors": {
+                  "enable": {},
+                  "defaultEnable": {}
+                },
+                "inheritPreProcessors": {
+                  "enable": {},
+                  "defaultEnable": {}
+                }
+              }
+            },
+            {
+              "name": "Редактировать вопрос",
+              "api": {
+                "id": "30779315",
+                "method": "put",
+                "path": "/questions/{id}",
+                "parameters": {
+                  "query": [],
+                  "path": [
+                    {
+                      "id": "id#0",
+                      "name": "id",
+                      "required": true,
+                      "enable": true,
+                      "description": "ID вопроса",
+                      "example": "",
+                      "type": "integer",
+                      "schema": {
+                        "type": "integer"
+                      }
+                    }
+                  ],
+                  "cookie": [],
+                  "header": []
+                },
+                "auth": {
+                  "type": "securityscheme"
+                },
+                "securityScheme": {
+                  "schemeGroups": [
+                    {
+                      "id": "JaynDY28ELCNnCMrjpX9B",
+                      "schemeIds": [
+                        493507
+                      ]
+                    }
+                  ],
+                  "required": true,
+                  "use": {
+                    "id": "JaynDY28ELCNnCMrjpX9B",
+                    "configs": {
+                      "493507": {
+                        "authConfigs": {
+                          "x-apidog": {
+                            "token": "{{bearerToken}}"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "scopes": {
+                    "JaynDY28ELCNnCMrjpX9B": {
+                      "493507": []
+                    }
+                  }
+                },
+                "commonParameters": {
+                  "query": [],
+                  "body": [],
+                  "cookie": [],
+                  "header": []
+                },
+                "responses": [
+                  {
+                    "id": "144272851",
+                    "code": "200",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "itemSchema": {},
+                    "description": "Вопрос успешно обновлён",
+                    "contentType": "noContent",
+                    "mediaType": "",
+                    "oasExtensions": ""
+                  },
+                  {
+                    "id": "138659228",
+                    "code": "403",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "itemSchema": {},
+                    "description": "Доступ запрещён или опрос опубликован",
+                    "contentType": "noContent",
+                    "mediaType": "",
+                    "oasExtensions": ""
+                  }
+                ],
+                "responseExamples": [],
+                "requestBody": {
+                  "type": "application/json",
+                  "parameters": [],
+                  "jsonSchema": {
+                    "type": "object",
+                    "properties": {
+                      "text": {
+                        "type": "string",
+                        "description": "Новый текст вопроса"
+                      },
+                      "order": {
+                        "type": "integer",
+                        "description": "Новый порядок отображения"
+                      },
+                      "required": {
+                        "type": "boolean",
+                        "description": "Обязательный ли вопрос"
+                      }
+                    },
+                    "x-apidog-orders": [
+                      "text",
+                      "order",
+                      "required"
+                    ]
+                  },
+                  "required": false,
+                  "mediaType": "application/json",
+                  "examples": [],
+                  "oasExtensions": ""
+                },
+                "description": "Обновляет существующий вопрос.\n\n### Ограничения\n\n- Можно редактировать только вопросы в опросах со статусом **draft**\n- Нельзя изменить тип вопроса после создания",
+                "tags": [
+                  "Questions"
+                ],
+                "status": "released",
+                "serverId": "",
+                "operationId": "",
+                "sourceUrl": "",
+                "ordering": 12,
+                "cases": [
+                  {
+                    "id": 41852976,
+                    "type": "DEBUG_CASE",
+                    "path": null,
+                    "name": "Success",
+                    "responseId": "144272851",
+                    "parameters": {
+                      "path": [
+                        {
+                          "id": "id#0",
+                          "relatedId": "id#0",
+                          "relatedName": "id",
+                          "name": "id",
+                          "value": "",
+                          "enable": true
+                        }
+                      ],
+                      "query": [],
+                      "cookie": [],
+                      "header": []
+                    },
+                    "commonParameters": {},
+                    "requestBody": {
+                      "parameters": [],
+                      "data": "",
+                      "type": "application/json",
+                      "generateMode": "normal"
+                    },
+                    "auth": {},
+                    "securityScheme": {},
+                    "advancedSettings": {
+                      "disabledSystemHeaders": {}
+                    },
+                    "requestResult": null,
+                    "visibility": "INHERITED",
+                    "moduleId": 1131474,
+                    "categoryId": 0,
+                    "tagIds": [],
+                    "apiTestDataList": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "inheritPostProcessors": {
+                      "enable": {},
+                      "defaultEnable": {}
+                    },
+                    "inheritPreProcessors": {
+                      "enable": {},
+                      "defaultEnable": {}
+                    }
+                  }
+                ],
+                "mocks": [],
+                "customApiFields": "{}",
+                "advancedSettings": {
+                  "disabledSystemHeaders": {}
+                },
+                "mockScript": {},
+                "codeSamples": [],
+                "commonResponseStatus": {},
+                "responseChildren": [],
+                "visibility": "INHERITED",
+                "moduleId": 1131474,
+                "oasExtensions": "",
+                "type": "http",
+                "preProcessors": [],
+                "postProcessors": [],
+                "inheritPostProcessors": {
+                  "enable": {},
+                  "defaultEnable": {}
+                },
+                "inheritPreProcessors": {
+                  "enable": {},
+                  "defaultEnable": {}
+                }
+              }
+            },
+            {
+              "name": "Удалить вопрос",
+              "api": {
+                "id": "30779316",
+                "method": "delete",
+                "path": "/questions/{id}",
+                "parameters": {
+                  "query": [],
+                  "path": [
+                    {
+                      "id": "id#0",
+                      "name": "id",
+                      "required": true,
+                      "enable": true,
+                      "description": "ID вопроса",
+                      "example": "",
+                      "type": "integer",
+                      "schema": {
+                        "type": "integer"
+                      }
+                    }
+                  ],
+                  "cookie": [],
+                  "header": []
+                },
+                "auth": {
+                  "type": "securityscheme"
+                },
+                "securityScheme": {
+                  "schemeGroups": [
+                    {
+                      "id": "kLGqZsL3fluxm9eQX8-9Z",
+                      "schemeIds": [
+                        493507
+                      ]
+                    }
+                  ],
+                  "required": true,
+                  "use": {
+                    "id": "kLGqZsL3fluxm9eQX8-9Z",
+                    "configs": {
+                      "493507": {
+                        "authConfigs": {
+                          "x-apidog": {
+                            "token": "{{bearerToken}}"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "scopes": {
+                    "kLGqZsL3fluxm9eQX8-9Z": {
+                      "493507": []
+                    }
+                  }
+                },
+                "commonParameters": {
+                  "query": [],
+                  "body": [],
+                  "cookie": [],
+                  "header": []
+                },
+                "responses": [
+                  {
+                    "id": "117850056",
+                    "code": "200",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "itemSchema": {},
+                    "description": "Вопрос успешно удалён",
+                    "contentType": "noContent",
+                    "mediaType": "",
+                    "oasExtensions": ""
+                  },
+                  {
+                    "id": "100431791",
+                    "code": "403",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "itemSchema": {},
+                    "description": "Доступ запрещён",
+                    "contentType": "noContent",
+                    "mediaType": "",
+                    "oasExtensions": ""
+                  }
+                ],
+                "responseExamples": [],
+                "requestBody": {
+                  "type": "none",
+                  "parameters": [],
+                  "required": false,
+                  "mediaType": "",
+                  "examples": [],
+                  "oasExtensions": ""
+                },
+                "description": "Удаляет вопрос и все связанные варианты ответов.\n\n### Важно\n\nЭто действие необратимо!",
+                "tags": [
+                  "Questions"
+                ],
+                "status": "released",
+                "serverId": "",
+                "operationId": "",
+                "sourceUrl": "",
+                "ordering": 18,
+                "cases": [
+                  {
+                    "id": 41852977,
+                    "type": "DEBUG_CASE",
+                    "path": null,
+                    "name": "Success",
+                    "responseId": "117850056",
+                    "parameters": {
+                      "path": [
+                        {
+                          "id": "id#0",
+                          "relatedId": "id#0",
+                          "relatedName": "id",
+                          "name": "id",
+                          "value": "",
+                          "enable": true
+                        }
+                      ],
+                      "query": [],
+                      "cookie": [],
+                      "header": []
+                    },
+                    "commonParameters": {},
+                    "requestBody": {
+                      "parameters": [],
+                      "type": "none",
+                      "generateMode": "normal"
+                    },
+                    "auth": {},
+                    "securityScheme": {},
+                    "advancedSettings": {
+                      "disabledSystemHeaders": {}
+                    },
+                    "requestResult": null,
+                    "visibility": "INHERITED",
+                    "moduleId": 1131474,
+                    "categoryId": 0,
+                    "tagIds": [],
+                    "apiTestDataList": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "inheritPostProcessors": {
+                      "enable": {},
+                      "defaultEnable": {}
+                    },
+                    "inheritPreProcessors": {
+                      "enable": {},
+                      "defaultEnable": {}
+                    }
+                  }
+                ],
+                "mocks": [],
+                "customApiFields": "{}",
+                "advancedSettings": {
+                  "disabledSystemHeaders": {}
+                },
+                "mockScript": {},
+                "codeSamples": [],
+                "commonResponseStatus": {},
+                "responseChildren": [],
+                "visibility": "INHERITED",
+                "moduleId": 1131474,
+                "oasExtensions": "",
+                "type": "http",
+                "preProcessors": [],
+                "postProcessors": [],
+                "inheritPostProcessors": {
+                  "enable": {},
+                  "defaultEnable": {}
+                },
+                "inheritPreProcessors": {
+                  "enable": {},
+                  "defaultEnable": {}
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Options",
+          "id": 7258350,
+          "auth": {},
+          "securityScheme": {},
+          "parentId": 0,
+          "serverId": "",
+          "description": "",
+          "identityPattern": {
+            "httpApi": {
+              "type": "inherit",
+              "bodyType": "",
+              "fields": []
+            }
+          },
+          "shareSettings": {},
+          "visibility": "INHERITED",
+          "moduleId": 1131474,
+          "preProcessors": [
+            {
+              "id": "inheritProcessors",
+              "type": "inheritProcessors",
+              "data": {}
+            }
+          ],
+          "postProcessors": [
+            {
+              "id": "inheritProcessors",
+              "type": "inheritProcessors",
+              "data": {}
+            }
+          ],
+          "inheritPostProcessors": {},
+          "inheritPreProcessors": {},
+          "items": [
+            {
+              "name": "Добавить вариант ответа",
+              "api": {
+                "id": "30779317",
+                "method": "post",
+                "path": "/questions/{id}/options",
+                "parameters": {
+                  "query": [],
+                  "path": [
+                    {
+                      "id": "id#0",
+                      "name": "id",
+                      "required": true,
+                      "enable": true,
+                      "description": "ID вопроса",
+                      "example": "",
+                      "type": "integer",
+                      "schema": {
+                        "type": "integer"
+                      }
+                    }
+                  ],
+                  "cookie": [],
+                  "header": []
+                },
+                "auth": {
+                  "type": "securityscheme"
+                },
+                "securityScheme": {
+                  "schemeGroups": [
+                    {
+                      "id": "CJ8lXEay_gyU2BZGoCcIN",
+                      "schemeIds": [
+                        493507
+                      ]
+                    }
+                  ],
+                  "required": true,
+                  "use": {
+                    "id": "CJ8lXEay_gyU2BZGoCcIN",
+                    "configs": {
+                      "493507": {
+                        "authConfigs": {
+                          "x-apidog": {
+                            "token": "{{bearerToken}}"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "scopes": {
+                    "CJ8lXEay_gyU2BZGoCcIN": {
+                      "493507": []
+                    }
+                  }
+                },
+                "commonParameters": {
+                  "query": [],
+                  "body": [],
+                  "cookie": [],
+                  "header": []
+                },
+                "responses": [
+                  {
+                    "id": "176947568",
+                    "code": "201",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "itemSchema": {},
+                    "description": "Вариант успешно создан",
+                    "contentType": "noContent",
+                    "mediaType": "",
+                    "oasExtensions": ""
+                  },
+                  {
+                    "id": "147413202",
+                    "code": "403",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "itemSchema": {},
+                    "description": "Доступ запрещён",
+                    "contentType": "noContent",
+                    "mediaType": "",
+                    "oasExtensions": ""
+                  }
+                ],
+                "responseExamples": [],
+                "requestBody": {
+                  "type": "application/json",
+                  "parameters": [],
+                  "jsonSchema": {
+                    "type": "object",
+                    "required": [
+                      "text"
+                    ],
+                    "properties": {
+                      "text": {
+                        "type": "string",
+                        "description": "Текст варианта ответа",
+                        "examples": [
+                          "Красный"
+                        ]
+                      },
+                      "order": {
+                        "type": "integer",
+                        "description": "Порядок отображения",
+                        "examples": [
+                          1
+                        ]
+                      }
+                    },
+                    "x-apidog-orders": [
+                      "text",
+                      "order"
+                    ]
+                  },
+                  "required": true,
+                  "mediaType": "application/json",
+                  "examples": [
+                    {
+                      "value": "{\n    \"text\": \"Красный\",\n    \"order\": 1\n}",
+                      "mediaType": "application/json",
+                      "description": ""
+                    }
+                  ],
+                  "oasExtensions": ""
+                },
+                "description": "Добавляет вариант ответа к вопросу.\n\n### Применение\n\nВарианты используются только для вопросов типов:\n- `single_choice` — одиночный выбор\n- `multiple_choice` — множественный выбор\n\n### Ограничения\n\n- Можно добавлять варианты только к вопросам в опросах со статусом **draft**",
+                "tags": [
+                  "Options"
+                ],
+                "status": "released",
+                "serverId": "",
+                "operationId": "",
+                "sourceUrl": "",
+                "ordering": 6,
+                "cases": [
+                  {
+                    "id": 41852978,
+                    "type": "DEBUG_CASE",
+                    "path": null,
+                    "name": "Success",
+                    "responseId": "176947568",
+                    "parameters": {
+                      "path": [
+                        {
+                          "id": "id#0",
+                          "relatedId": "id#0",
+                          "relatedName": "id",
+                          "name": "id",
+                          "value": "",
+                          "enable": true
+                        }
+                      ],
+                      "query": [],
+                      "cookie": [],
+                      "header": []
+                    },
+                    "commonParameters": {},
+                    "requestBody": {
+                      "parameters": [],
+                      "data": "{\n    \"text\": \"Красный\",\n    \"order\": 1\n}",
+                      "type": "application/json",
+                      "generateMode": "normal"
+                    },
+                    "auth": {},
+                    "securityScheme": {},
+                    "advancedSettings": {
+                      "disabledSystemHeaders": {}
+                    },
+                    "requestResult": null,
+                    "visibility": "INHERITED",
+                    "moduleId": 1131474,
+                    "categoryId": 0,
+                    "tagIds": [],
+                    "apiTestDataList": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "inheritPostProcessors": {
+                      "enable": {},
+                      "defaultEnable": {}
+                    },
+                    "inheritPreProcessors": {
+                      "enable": {},
+                      "defaultEnable": {}
+                    }
+                  }
+                ],
+                "mocks": [],
+                "customApiFields": "{}",
+                "advancedSettings": {
+                  "disabledSystemHeaders": {}
+                },
+                "mockScript": {},
+                "codeSamples": [],
+                "commonResponseStatus": {},
+                "responseChildren": [],
+                "visibility": "INHERITED",
+                "moduleId": 1131474,
+                "oasExtensions": "",
+                "type": "http",
+                "preProcessors": [],
+                "postProcessors": [],
+                "inheritPostProcessors": {
+                  "enable": {},
+                  "defaultEnable": {}
+                },
+                "inheritPreProcessors": {
+                  "enable": {},
+                  "defaultEnable": {}
+                }
+              }
+            },
+            {
+              "name": "Редактировать вариант",
+              "api": {
+                "id": "30779318",
+                "method": "put",
+                "path": "/options/{id}",
+                "parameters": {
+                  "query": [],
+                  "path": [
+                    {
+                      "id": "id#0",
+                      "name": "id",
+                      "required": true,
+                      "enable": true,
+                      "description": "ID варианта",
+                      "example": "",
+                      "type": "integer",
+                      "schema": {
+                        "type": "integer"
+                      }
+                    }
+                  ],
+                  "cookie": [],
+                  "header": []
+                },
+                "auth": {
+                  "type": "securityscheme"
+                },
+                "securityScheme": {
+                  "schemeGroups": [
+                    {
+                      "id": "VbBLRWPllIgCexgi_FJ5J",
+                      "schemeIds": [
+                        493507
+                      ]
+                    }
+                  ],
+                  "required": true,
+                  "use": {
+                    "id": "VbBLRWPllIgCexgi_FJ5J",
+                    "configs": {
+                      "493507": {
+                        "authConfigs": {
+                          "x-apidog": {
+                            "token": "{{bearerToken}}"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "scopes": {
+                    "VbBLRWPllIgCexgi_FJ5J": {
+                      "493507": []
+                    }
+                  }
+                },
+                "commonParameters": {
+                  "query": [],
+                  "body": [],
+                  "cookie": [],
+                  "header": []
+                },
+                "responses": [
+                  {
+                    "id": "104660889",
+                    "code": "200",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "itemSchema": {},
+                    "description": "Вариант успешно обновлён",
+                    "contentType": "noContent",
+                    "mediaType": "",
+                    "oasExtensions": ""
+                  },
+                  {
+                    "id": "187194903",
+                    "code": "403",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "itemSchema": {},
+                    "description": "Доступ запрещён",
+                    "contentType": "noContent",
+                    "mediaType": "",
+                    "oasExtensions": ""
+                  }
+                ],
+                "responseExamples": [],
+                "requestBody": {
+                  "type": "application/json",
+                  "parameters": [],
+                  "jsonSchema": {
+                    "type": "object",
+                    "properties": {
+                      "text": {
+                        "type": "string",
+                        "description": "Новый текст варианта"
+                      },
+                      "order": {
+                        "type": "integer",
+                        "description": "Новый порядок отображения"
+                      }
+                    },
+                    "x-apidog-orders": [
+                      "text",
+                      "order"
+                    ]
+                  },
+                  "required": false,
+                  "mediaType": "application/json",
+                  "examples": [],
+                  "oasExtensions": ""
+                },
+                "description": "Обновляет существующий вариант ответа.",
+                "tags": [
+                  "Options"
+                ],
+                "status": "released",
+                "serverId": "",
+                "operationId": "",
+                "sourceUrl": "",
+                "ordering": 12,
+                "cases": [
+                  {
+                    "id": 41852979,
+                    "type": "DEBUG_CASE",
+                    "path": null,
+                    "name": "Success",
+                    "responseId": "104660889",
+                    "parameters": {
+                      "path": [
+                        {
+                          "id": "id#0",
+                          "relatedId": "id#0",
+                          "relatedName": "id",
+                          "name": "id",
+                          "value": "",
+                          "enable": true
+                        }
+                      ],
+                      "query": [],
+                      "cookie": [],
+                      "header": []
+                    },
+                    "commonParameters": {},
+                    "requestBody": {
+                      "parameters": [],
+                      "data": "",
+                      "type": "application/json",
+                      "generateMode": "normal"
+                    },
+                    "auth": {},
+                    "securityScheme": {},
+                    "advancedSettings": {
+                      "disabledSystemHeaders": {}
+                    },
+                    "requestResult": null,
+                    "visibility": "INHERITED",
+                    "moduleId": 1131474,
+                    "categoryId": 0,
+                    "tagIds": [],
+                    "apiTestDataList": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "inheritPostProcessors": {
+                      "enable": {},
+                      "defaultEnable": {}
+                    },
+                    "inheritPreProcessors": {
+                      "enable": {},
+                      "defaultEnable": {}
+                    }
+                  }
+                ],
+                "mocks": [],
+                "customApiFields": "{}",
+                "advancedSettings": {
+                  "disabledSystemHeaders": {}
+                },
+                "mockScript": {},
+                "codeSamples": [],
+                "commonResponseStatus": {},
+                "responseChildren": [],
+                "visibility": "INHERITED",
+                "moduleId": 1131474,
+                "oasExtensions": "",
+                "type": "http",
+                "preProcessors": [],
+                "postProcessors": [],
+                "inheritPostProcessors": {
+                  "enable": {},
+                  "defaultEnable": {}
+                },
+                "inheritPreProcessors": {
+                  "enable": {},
+                  "defaultEnable": {}
+                }
+              }
+            },
+            {
+              "name": "Удалить вариант",
+              "api": {
+                "id": "30779319",
+                "method": "delete",
+                "path": "/options/{id}",
+                "parameters": {
+                  "query": [],
+                  "path": [
+                    {
+                      "id": "id#0",
+                      "name": "id",
+                      "required": true,
+                      "enable": true,
+                      "description": "ID варианта",
+                      "example": "",
+                      "type": "integer",
+                      "schema": {
+                        "type": "integer"
+                      }
+                    }
+                  ],
+                  "cookie": [],
+                  "header": []
+                },
+                "auth": {
+                  "type": "securityscheme"
+                },
+                "securityScheme": {
+                  "schemeGroups": [
+                    {
+                      "id": "YzAkevS7WmQi_atwdp9gi",
+                      "schemeIds": [
+                        493507
+                      ]
+                    }
+                  ],
+                  "required": true,
+                  "use": {
+                    "id": "YzAkevS7WmQi_atwdp9gi",
+                    "configs": {
+                      "493507": {
+                        "authConfigs": {
+                          "x-apidog": {
+                            "token": "{{bearerToken}}"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "scopes": {
+                    "YzAkevS7WmQi_atwdp9gi": {
+                      "493507": []
+                    }
+                  }
+                },
+                "commonParameters": {
+                  "query": [],
+                  "body": [],
+                  "cookie": [],
+                  "header": []
+                },
+                "responses": [
+                  {
+                    "id": "186590588",
+                    "code": "200",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "itemSchema": {},
+                    "description": "Вариант успешно удалён",
+                    "contentType": "noContent",
+                    "mediaType": "",
+                    "oasExtensions": ""
+                  },
+                  {
+                    "id": "161778862",
+                    "code": "403",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "itemSchema": {},
+                    "description": "Доступ запрещён",
+                    "contentType": "noContent",
+                    "mediaType": "",
+                    "oasExtensions": ""
+                  }
+                ],
+                "responseExamples": [],
+                "requestBody": {
+                  "type": "none",
+                  "parameters": [],
+                  "required": false,
+                  "mediaType": "",
+                  "examples": [],
+                  "oasExtensions": ""
+                },
+                "description": "Удаляет вариант ответа.\n\n### Важно\n\nЕсли на этот вариант были ответы, они также будут удалены!",
+                "tags": [
+                  "Options"
+                ],
+                "status": "released",
+                "serverId": "",
+                "operationId": "",
+                "sourceUrl": "",
+                "ordering": 18,
+                "cases": [
+                  {
+                    "id": 41852980,
+                    "type": "DEBUG_CASE",
+                    "path": null,
+                    "name": "Success",
+                    "responseId": "186590588",
+                    "parameters": {
+                      "path": [
+                        {
+                          "id": "id#0",
+                          "relatedId": "id#0",
+                          "relatedName": "id",
+                          "name": "id",
+                          "value": "",
+                          "enable": true
+                        }
+                      ],
+                      "query": [],
+                      "cookie": [],
+                      "header": []
+                    },
+                    "commonParameters": {},
+                    "requestBody": {
+                      "parameters": [],
+                      "type": "none",
+                      "generateMode": "normal"
+                    },
+                    "auth": {},
+                    "securityScheme": {},
+                    "advancedSettings": {
+                      "disabledSystemHeaders": {}
+                    },
+                    "requestResult": null,
+                    "visibility": "INHERITED",
+                    "moduleId": 1131474,
+                    "categoryId": 0,
+                    "tagIds": [],
+                    "apiTestDataList": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "inheritPostProcessors": {
+                      "enable": {},
+                      "defaultEnable": {}
+                    },
+                    "inheritPreProcessors": {
+                      "enable": {},
+                      "defaultEnable": {}
+                    }
+                  }
+                ],
+                "mocks": [],
+                "customApiFields": "{}",
+                "advancedSettings": {
+                  "disabledSystemHeaders": {}
+                },
+                "mockScript": {},
+                "codeSamples": [],
+                "commonResponseStatus": {},
+                "responseChildren": [],
+                "visibility": "INHERITED",
+                "moduleId": 1131474,
+                "oasExtensions": "",
+                "type": "http",
+                "preProcessors": [],
+                "postProcessors": [],
+                "inheritPostProcessors": {
+                  "enable": {},
+                  "defaultEnable": {}
+                },
+                "inheritPreProcessors": {
+                  "enable": {},
+                  "defaultEnable": {}
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Responses",
+          "id": 7258351,
+          "auth": {},
+          "securityScheme": {},
+          "parentId": 0,
+          "serverId": "",
+          "description": "",
+          "identityPattern": {
+            "httpApi": {
+              "type": "inherit",
+              "bodyType": "",
+              "fields": []
+            }
+          },
+          "shareSettings": {},
+          "visibility": "INHERITED",
+          "moduleId": 1131474,
+          "preProcessors": [
+            {
+              "id": "inheritProcessors",
+              "type": "inheritProcessors",
+              "data": {}
+            }
+          ],
+          "postProcessors": [
+            {
+              "id": "inheritProcessors",
+              "type": "inheritProcessors",
+              "data": {}
+            }
+          ],
+          "inheritPostProcessors": {},
+          "inheritPreProcessors": {},
+          "items": [
+            {
+              "name": "Пройти опрос",
+              "api": {
+                "id": "30779320",
+                "method": "post",
+                "path": "/surveys/{id}/respond",
+                "parameters": {
+                  "query": [],
+                  "path": [
+                    {
+                      "id": "id#0",
+                      "name": "id",
+                      "required": true,
+                      "enable": true,
+                      "description": "ID опроса",
+                      "example": "",
+                      "type": "integer",
+                      "schema": {
+                        "type": "integer"
+                      }
+                    }
+                  ],
+                  "cookie": [],
+                  "header": []
+                },
+                "auth": {
+                  "type": "securityscheme"
+                },
+                "securityScheme": {
+                  "schemeGroups": [
+                    {
+                      "id": "dxIuKzgnUHmUibGgIDm4e",
+                      "schemeIds": [
+                        493507
+                      ]
+                    }
+                  ],
+                  "required": true,
+                  "use": {
+                    "id": "dxIuKzgnUHmUibGgIDm4e",
+                    "configs": {
+                      "493507": {
+                        "authConfigs": {
+                          "x-apidog": {
+                            "token": "{{bearerToken}}"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "scopes": {
+                    "dxIuKzgnUHmUibGgIDm4e": {
+                      "493507": []
+                    }
+                  }
+                },
+                "commonParameters": {
+                  "query": [],
+                  "body": [],
+                  "cookie": [],
+                  "header": []
+                },
+                "responses": [
+                  {
+                    "id": "197601851",
+                    "code": "201",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "survey_id": {
+                          "type": "integer"
+                        },
+                        "answers": {
+                          "type": "array"
+                        }
+                      },
+                      "x-apidog-orders": [
+                        "id",
+                        "survey_id",
+                        "answers"
+                      ]
+                    },
+                    "itemSchema": {},
+                    "description": "Ответ успешно принят",
+                    "contentType": "json",
+                    "mediaType": "application/json",
+                    "oasExtensions": ""
+                  },
+                  {
+                    "id": "165979883",
+                    "code": "403",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "itemSchema": {},
+                    "description": "Опрос не опубликован или закрыт",
+                    "contentType": "noContent",
+                    "mediaType": "",
+                    "oasExtensions": ""
+                  },
+                  {
+                    "id": "179471046",
+                    "code": "409",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "itemSchema": {},
+                    "description": "Вы уже прошли этот опрос",
+                    "contentType": "noContent",
+                    "mediaType": "",
+                    "oasExtensions": ""
+                  },
+                  {
+                    "id": "151492773",
+                    "code": "422",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "itemSchema": {},
+                    "description": "Ошибка валидации ответов",
+                    "contentType": "noContent",
+                    "mediaType": "",
+                    "oasExtensions": ""
+                  }
+                ],
+                "responseExamples": [],
+                "requestBody": {
+                  "type": "application/json",
+                  "parameters": [],
+                  "jsonSchema": {
+                    "type": "object",
+                    "required": [
+                      "answers"
+                    ],
+                    "properties": {
+                      "answers": {
+                        "type": "array",
+                        "description": "Массив ответов на вопросы",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "question_id": {
+                              "type": "integer",
+                              "description": "ID вопроса"
+                            },
+                            "option_id": {
+                              "type": "integer",
+                              "description": "ID выбранного варианта (для single_choice)"
+                            },
+                            "option_ids": {
+                              "type": "array",
+                              "items": {
+                                "type": "integer"
+                              },
+                              "description": "Массив ID вариантов (для multiple_choice)"
+                            },
+                            "text_value": {
+                              "type": "string",
+                              "description": "Текстовый ответ (для text_answer)"
+                            }
+                          },
+                          "x-apidog-orders": [
+                            "question_id",
+                            "option_id",
+                            "option_ids",
+                            "text_value"
+                          ]
+                        }
+                      }
+                    },
+                    "x-apidog-orders": [
+                      "answers"
+                    ]
+                  },
+                  "required": true,
+                  "mediaType": "application/json",
+                  "examples": [
+                    {
+                      "value": "{\n    \"answers\": [\n        {\n            \"question_id\": 1,\n            \"option_id\": 2\n        },\n        {\n            \"question_id\": 2,\n            \"option_ids\": [\n                1,\n                3\n            ]\n        },\n        {\n            \"question_id\": 3,\n            \"text_value\": \"Развёрнутый ответ\"\n        }\n    ]\n}",
+                      "mediaType": "application/json",
+                      "description": ""
+                    }
+                  ],
+                  "oasExtensions": ""
+                },
+                "description": "Отправляет ответы на вопросы опроса.\n\n### Требования\n\n- Опрос должен быть в статусе **published**\n- Респондент должен быть аутентифицирован\n- Один пользователь может пройти опрос только **один раз**\n\n### Формат ответов\n\n**Для single_choice:**\n```json\n{\n  \"answers\": [\n    {\"question_id\": 1, \"option_id\": 2}\n  ]\n}\n```\n\n**Для multiple_choice:**\n```json\n{\n  \"answers\": [\n    {\"question_id\": 1, \"option_ids\": [1, 3]}\n  ]\n}\n```\n\n**Для text_answer:**\n```json\n{\n  \"answers\": [\n    {\"question_id\": 1, \"text_value\": \"Мой ответ\"}\n  ]\n}\n```",
+                "tags": [
+                  "Responses"
+                ],
+                "status": "released",
+                "serverId": "",
+                "operationId": "",
+                "sourceUrl": "",
+                "ordering": 6,
+                "cases": [
+                  {
+                    "id": 41852981,
+                    "type": "DEBUG_CASE",
+                    "path": null,
+                    "name": "Success",
+                    "responseId": "197601851",
+                    "parameters": {
+                      "path": [
+                        {
+                          "id": "id#0",
+                          "relatedId": "id#0",
+                          "relatedName": "id",
+                          "name": "id",
+                          "value": "",
+                          "enable": true
+                        }
+                      ],
+                      "query": [],
+                      "cookie": [],
+                      "header": []
+                    },
+                    "commonParameters": {},
+                    "requestBody": {
+                      "parameters": [],
+                      "data": "{\n    \"answers\": [\n        {\n            \"question_id\": 1,\n            \"option_id\": 2\n        },\n        {\n            \"question_id\": 2,\n            \"option_ids\": [\n                1,\n                3\n            ]\n        },\n        {\n            \"question_id\": 3,\n            \"text_value\": \"Развёрнутый ответ\"\n        }\n    ]\n}",
+                      "type": "application/json",
+                      "generateMode": "normal"
+                    },
+                    "auth": {},
+                    "securityScheme": {},
+                    "advancedSettings": {
+                      "disabledSystemHeaders": {}
+                    },
+                    "requestResult": null,
+                    "visibility": "INHERITED",
+                    "moduleId": 1131474,
+                    "categoryId": 0,
+                    "tagIds": [],
+                    "apiTestDataList": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "inheritPostProcessors": {
+                      "enable": {},
+                      "defaultEnable": {}
+                    },
+                    "inheritPreProcessors": {
+                      "enable": {},
+                      "defaultEnable": {}
+                    }
+                  }
+                ],
+                "mocks": [],
+                "customApiFields": "{}",
+                "advancedSettings": {
+                  "disabledSystemHeaders": {}
+                },
+                "mockScript": {},
+                "codeSamples": [],
+                "commonResponseStatus": {},
+                "responseChildren": [],
+                "visibility": "INHERITED",
+                "moduleId": 1131474,
+                "oasExtensions": "",
+                "type": "http",
+                "preProcessors": [],
+                "postProcessors": [],
+                "inheritPostProcessors": {
+                  "enable": {},
+                  "defaultEnable": {}
+                },
+                "inheritPreProcessors": {
+                  "enable": {},
+                  "defaultEnable": {}
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Results",
+          "id": 7258352,
+          "auth": {},
+          "securityScheme": {},
+          "parentId": 0,
+          "serverId": "",
+          "description": "",
+          "identityPattern": {
+            "httpApi": {
+              "type": "inherit",
+              "bodyType": "",
+              "fields": []
+            }
+          },
+          "shareSettings": {},
+          "visibility": "INHERITED",
+          "moduleId": 1131474,
+          "preProcessors": [
+            {
+              "id": "inheritProcessors",
+              "type": "inheritProcessors",
+              "data": {}
+            }
+          ],
+          "postProcessors": [
+            {
+              "id": "inheritProcessors",
+              "type": "inheritProcessors",
+              "data": {}
+            }
+          ],
+          "inheritPostProcessors": {},
+          "inheritPreProcessors": {},
+          "items": [
+            {
+              "name": "Получить статистику опроса",
+              "api": {
+                "id": "30779321",
+                "method": "get",
+                "path": "/surveys/{id}/results",
+                "parameters": {
+                  "query": [],
+                  "path": [
+                    {
+                      "id": "id#0",
+                      "name": "id",
+                      "required": true,
+                      "enable": true,
+                      "description": "ID опроса",
+                      "example": "",
+                      "type": "integer",
+                      "schema": {
+                        "type": "integer"
+                      }
+                    }
+                  ],
+                  "cookie": [],
+                  "header": []
+                },
+                "auth": {
+                  "type": "securityscheme"
+                },
+                "securityScheme": {
+                  "schemeGroups": [
+                    {
+                      "id": "InSCmOREWF510Z3aWyO_w",
+                      "schemeIds": [
+                        493507
+                      ]
+                    }
+                  ],
+                  "required": true,
+                  "use": {
+                    "id": "InSCmOREWF510Z3aWyO_w",
+                    "configs": {
+                      "493507": {
+                        "authConfigs": {
+                          "x-apidog": {
+                            "token": "{{bearerToken}}"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "scopes": {
+                    "InSCmOREWF510Z3aWyO_w": {
+                      "493507": []
+                    }
+                  }
+                },
+                "commonParameters": {
+                  "query": [],
+                  "body": [],
+                  "cookie": [],
+                  "header": []
+                },
+                "responses": [
+                  {
+                    "id": "169877111",
+                    "code": "200",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {
+                        "survey": {
+                          "$ref": "#/definitions/13523363"
+                        },
+                        "total_responses": {
+                          "type": "integer"
+                        },
+                        "statistics": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "question_id": {
+                                "type": "integer"
+                              },
+                              "type": {
+                                "type": "string"
+                              },
+                              "options": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "option_id": {
+                                      "type": "integer"
+                                    },
+                                    "text": {
+                                      "type": "string"
+                                    },
+                                    "count": {
+                                      "type": "integer"
+                                    },
+                                    "percentage": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "x-apidog-orders": [
+                                    "option_id",
+                                    "text",
+                                    "count",
+                                    "percentage"
+                                  ]
+                                }
+                              }
+                            },
+                            "x-apidog-orders": [
+                              "question_id",
+                              "type",
+                              "options"
+                            ]
+                          }
+                        }
+                      },
+                      "x-apidog-orders": [
+                        "survey",
+                        "total_responses",
+                        "statistics"
+                      ]
+                    },
+                    "itemSchema": {},
+                    "description": "Статистика опроса",
+                    "contentType": "json",
+                    "mediaType": "application/json",
+                    "oasExtensions": ""
+                  },
+                  {
+                    "id": "102613678",
+                    "code": "403",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "itemSchema": {},
+                    "description": "Доступ запрещён",
+                    "contentType": "noContent",
+                    "mediaType": "",
+                    "oasExtensions": ""
+                  }
+                ],
+                "responseExamples": [],
+                "requestBody": {
+                  "type": "none",
+                  "parameters": [],
+                  "required": false,
+                  "mediaType": "",
+                  "examples": [],
+                  "oasExtensions": ""
+                },
+                "description": "Возвращает статистику по ответам на опрос.\n\n### Данные в ответе\n\n- Общее количество респондентов\n- По каждому вопросу с выбором:\n  - Количество ответов по каждому варианту\n  - Процентное соотношение\n- По текстовым вопросам:\n  - Список всех ответов\n\n### Доступ\n\nТолько автор опроса или администратор.",
+                "tags": [
+                  "Results"
+                ],
+                "status": "released",
+                "serverId": "",
+                "operationId": "",
+                "sourceUrl": "",
+                "ordering": 6,
+                "cases": [
+                  {
+                    "id": 41852982,
+                    "type": "DEBUG_CASE",
+                    "path": null,
+                    "name": "Success",
+                    "responseId": "169877111",
+                    "parameters": {
+                      "path": [
+                        {
+                          "id": "id#0",
+                          "relatedId": "id#0",
+                          "relatedName": "id",
+                          "name": "id",
+                          "value": "",
+                          "enable": true
+                        }
+                      ],
+                      "query": [],
+                      "cookie": [],
+                      "header": []
+                    },
+                    "commonParameters": {},
+                    "requestBody": {
+                      "parameters": [],
+                      "type": "none",
+                      "generateMode": "normal"
+                    },
+                    "auth": {},
+                    "securityScheme": {},
+                    "advancedSettings": {
+                      "disabledSystemHeaders": {}
+                    },
+                    "requestResult": null,
+                    "visibility": "INHERITED",
+                    "moduleId": 1131474,
+                    "categoryId": 0,
+                    "tagIds": [],
+                    "apiTestDataList": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "inheritPostProcessors": {
+                      "enable": {},
+                      "defaultEnable": {}
+                    },
+                    "inheritPreProcessors": {
+                      "enable": {},
+                      "defaultEnable": {}
+                    }
+                  }
+                ],
+                "mocks": [],
+                "customApiFields": "{}",
+                "advancedSettings": {
+                  "disabledSystemHeaders": {}
+                },
+                "mockScript": {},
+                "codeSamples": [],
+                "commonResponseStatus": {},
+                "responseChildren": [],
+                "visibility": "INHERITED",
+                "moduleId": 1131474,
+                "oasExtensions": "",
+                "type": "http",
+                "preProcessors": [],
+                "postProcessors": [],
+                "inheritPostProcessors": {
+                  "enable": {},
+                  "defaultEnable": {}
+                },
+                "inheritPreProcessors": {
+                  "enable": {},
+                  "defaultEnable": {}
+                }
+              }
+            },
+            {
+              "name": "Экспорт результатов в JSON",
+              "api": {
+                "id": "30779322",
+                "method": "get",
+                "path": "/surveys/{id}/results/export",
+                "parameters": {
+                  "query": [],
+                  "path": [
+                    {
+                      "id": "id#0",
+                      "name": "id",
+                      "required": true,
+                      "enable": true,
+                      "description": "ID опроса",
+                      "example": "",
+                      "type": "integer",
+                      "schema": {
+                        "type": "integer"
+                      }
+                    }
+                  ],
+                  "cookie": [],
+                  "header": []
+                },
+                "auth": {
+                  "type": "securityscheme"
+                },
+                "securityScheme": {
+                  "schemeGroups": [
+                    {
+                      "id": "5o08TCij5o9JCW3VNtNfI",
+                      "schemeIds": [
+                        493507
+                      ]
+                    }
+                  ],
+                  "required": true,
+                  "use": {
+                    "id": "5o08TCij5o9JCW3VNtNfI",
+                    "configs": {
+                      "493507": {
+                        "authConfigs": {
+                          "x-apidog": {
+                            "token": "{{bearerToken}}"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "scopes": {
+                    "5o08TCij5o9JCW3VNtNfI": {
+                      "493507": []
+                    }
+                  }
+                },
+                "commonParameters": {
+                  "query": [],
+                  "body": [],
+                  "cookie": [],
+                  "header": []
+                },
+                "responses": [
+                  {
+                    "id": "162738955",
+                    "code": "200",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "itemSchema": {},
+                    "description": "JSON с результатами опроса",
+                    "contentType": "noContent",
+                    "mediaType": "",
+                    "oasExtensions": ""
+                  },
+                  {
+                    "id": "109331461",
+                    "code": "403",
+                    "name": "",
+                    "headers": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "itemSchema": {},
+                    "description": "Доступ запрещён",
+                    "contentType": "noContent",
+                    "mediaType": "",
+                    "oasExtensions": ""
+                  }
+                ],
+                "responseExamples": [],
+                "requestBody": {
+                  "type": "none",
+                  "parameters": [],
+                  "required": false,
+                  "mediaType": "",
+                  "examples": [],
+                  "oasExtensions": ""
+                },
+                "description": "Экспортирует все результаты опроса в формате JSON.\n\n### Данные в ответе\n\n- Информация об опросе\n- Список всех респондентов\n- Все ответы с деталями\n\n### Доступ\n\nТолько автор опроса или администратор.",
+                "tags": [
+                  "Results"
+                ],
+                "status": "released",
+                "serverId": "",
+                "operationId": "",
+                "sourceUrl": "",
+                "ordering": 12,
+                "cases": [
+                  {
+                    "id": 41852983,
+                    "type": "DEBUG_CASE",
+                    "path": null,
+                    "name": "Success",
+                    "responseId": "162738955",
+                    "parameters": {
+                      "path": [
+                        {
+                          "id": "id#0",
+                          "relatedId": "id#0",
+                          "relatedName": "id",
+                          "name": "id",
+                          "value": "",
+                          "enable": true
+                        }
+                      ],
+                      "query": [],
+                      "cookie": [],
+                      "header": []
+                    },
+                    "commonParameters": {},
+                    "requestBody": {
+                      "parameters": [],
+                      "type": "none",
+                      "generateMode": "normal"
+                    },
+                    "auth": {},
+                    "securityScheme": {},
+                    "advancedSettings": {
+                      "disabledSystemHeaders": {}
+                    },
+                    "requestResult": null,
+                    "visibility": "INHERITED",
+                    "moduleId": 1131474,
+                    "categoryId": 0,
+                    "tagIds": [],
+                    "apiTestDataList": [],
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "inheritPostProcessors": {
+                      "enable": {},
+                      "defaultEnable": {}
+                    },
+                    "inheritPreProcessors": {
+                      "enable": {},
+                      "defaultEnable": {}
+                    }
+                  }
+                ],
+                "mocks": [],
+                "customApiFields": "{}",
+                "advancedSettings": {
+                  "disabledSystemHeaders": {}
+                },
+                "mockScript": {},
+                "codeSamples": [],
+                "commonResponseStatus": {},
+                "responseChildren": [],
+                "visibility": "INHERITED",
+                "moduleId": 1131474,
+                "oasExtensions": "",
+                "type": "http",
+                "preProcessors": [],
+                "postProcessors": [],
+                "inheritPostProcessors": {
+                  "enable": {},
+                  "defaultEnable": {}
+                },
+                "inheritPreProcessors": {
+                  "enable": {},
+                  "defaultEnable": {}
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "socketCollection": [],
+  "docCollection": [],
+  "webSocketCollection": [],
+  "socketIOCollection": [],
+  "mcpClientCollection": [],
+  "responseCollection": [],
+  "schemaCollection": [
+    {
+      "id": 3174115,
+      "name": "Root",
+      "visibility": "SHARED",
+      "moduleId": 1131474,
+      "items": [
+        {
+          "name": "Survey",
+          "displayName": "",
+          "id": "#/definitions/13523363",
+          "description": "Модель опроса",
+          "schema": {
+            "jsonSchema": {
+              "type": "object",
+              "description": "Модель опроса",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "description": "Уникальный ID опроса"
+                },
+                "author_id": {
+                  "type": "integer",
+                  "description": "ID автора опроса"
+                },
+                "title": {
+                  "type": "string",
+                  "description": "Название опроса"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Описание опроса"
+                },
+                "status": {
+                  "type": "integer",
+                  "description": "Статус: 1=draft, 2=published, 3=closed"
+                },
+                "published_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Дата публикации"
+                },
+                "closed_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Дата закрытия"
+                },
+                "created_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Дата создания"
+                },
+                "updated_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Дата обновления"
+                }
+              },
+              "x-apidog-orders": [
+                "id",
+                "author_id",
+                "title",
+                "description",
+                "status",
+                "published_at",
+                "closed_at",
+                "created_at",
+                "updated_at"
+              ]
+            }
+          },
+          "visibility": "INHERITED",
+          "moduleId": 1131474
+        }
+      ]
+    }
+  ],
+  "securitySchemeCollection": [
+    {
+      "id": 1169493,
+      "moduleId": 1131474,
+      "name": "Root",
+      "items": [
+        {
+          "id": 493507,
+          "name": "bearerAuth",
+          "moduleId": 1131474,
+          "authType": "jwt",
+          "oasAuthType": "http",
+          "authConfigs": {
+            "type": "http",
+            "scheme": "bearer",
+            "bearerFormat": "JWT",
+            "description": "JWT-токен, полученный при регистрации или входе. Передавайте в заголовке: `Authorization: Bearer {token}`"
+          },
+          "guidanceConfigs": {}
+        }
+      ]
+    }
+  ],
+  "oasComponentCollection": [],
+  "requestCollection": [
+    {
+      "name": "Root",
+      "children": [],
+      "ordering": [
+        "requestFolder.9535959"
+      ],
+      "items": []
+    }
+  ],
+  "environments": [],
+  "commonScripts": [],
+  "globalVariables": [
+    {
+      "id": "1225964",
+      "variables": []
+    }
+  ],
+  "commonParameters": null,
+  "customFunctions": [],
+  "projectTestCaseCategories": [
+    {
+      "id": 1037699,
+      "name": "Positive",
+      "description": "Valid inputs and correct expected results, representing typical usage."
+    },
+    {
+      "id": 1037700,
+      "name": "Negative",
+      "description": "Negative, invalid inputs such as missing fields, wrong types, unsupported methods, etc."
+    },
+    {
+      "id": 1037701,
+      "name": "Boundary",
+      "description": "Extreme or edge conditions, such as maximum string length, empty values, zero, null, etc."
+    },
+    {
+      "id": 1037702,
+      "name": "Security",
+      "description": "Test cases that may expose API security risks."
+    },
+    {
+      "id": 1037703,
+      "name": "Other",
+      "description": "Test cases not classified under existing categories."
+    }
+  ],
+  "projectTestCaseTags": [
+    {
+      "id": 4114406,
+      "name": "Required Fields Only",
+      "description": "Send only the required fields with valid values, omitting all optional fields, to test minimal valid requests."
+    },
+    {
+      "id": 4114407,
+      "name": "Valid Semantic",
+      "description": "Use values that are syntactically correct and also make sense in the business logic or domain context."
+    },
+    {
+      "id": 4114408,
+      "name": "Enum Combination Coverage",
+      "description": "For all enum-type parameters, apply orthogonal design to systematically construct test case combinations of parameters and their enum values, dedicated to testing enum coverage."
+    },
+    {
+      "id": 4114409,
+      "name": "Other Positive Case",
+      "description": "Provide realistic and valid inputs that match the API specification, producing the correct and expected result."
+    },
+    {
+      "id": 4114410,
+      "name": "Missing Required Fields",
+      "description": "Omit one or more required fields in the request body or parameters."
+    },
+    {
+      "id": 4114411,
+      "name": "Invalid Values",
+      "description": "Provide values that are within the correct type and format, but logically invalid for the field."
+    },
+    {
+      "id": 4114412,
+      "name": "Type Errors",
+      "description": "Use values with incorrect data types, such as sending a string instead of an integer."
+    },
+    {
+      "id": 4114413,
+      "name": "Format Errors",
+      "description": "Provide values in an incorrect format, e.g., wrong date pattern, malformed email address."
+    },
+    {
+      "id": 4114414,
+      "name": "Semantic Errors",
+      "description": "Use syntactically correct and properly formatted values that are logically impossible or violate domain rules."
+    },
+    {
+      "id": 4114415,
+      "name": "Other Negative Case",
+      "description": "Provide invalid or unexpected inputs that should trigger error handling or rejection by the API."
+    },
+    {
+      "id": 4114416,
+      "name": "Null",
+      "description": "Must be the JSON literal `null` (not empty, not \"null\")."
+    },
+    {
+      "id": 4114417,
+      "name": "Zero",
+      "description": "Must be the numeric literal 0."
+    },
+    {
+      "id": 4114418,
+      "name": "Empty Values",
+      "description": "Must be \"\"."
+    },
+    {
+      "id": 4114419,
+      "name": "Max Values",
+      "description": "Provide the exact minimum and maximum allowed values for numeric or date fields."
+    },
+    {
+      "id": 4114420,
+      "name": "Min Values",
+      "description": "Provide the exact minimum and maximum allowed values for numeric or date fields."
+    },
+    {
+      "id": 4114421,
+      "name": "Overflow",
+      "description": "Provide values just beyond the allowed minimum or maximum boundaries."
+    },
+    {
+      "id": 4114422,
+      "name": "Underflow",
+      "description": "Provide values just beyond the allowed minimum or maximum boundaries."
+    },
+    {
+      "id": 4114423,
+      "name": "Overly Long Strings",
+      "description": "Provide strings longer than the maximum allowed length, or shorter than the minimum required length."
+    },
+    {
+      "id": 4114424,
+      "name": "Overly Short Strings",
+      "description": "Provide strings longer than the maximum allowed length, or shorter than the minimum required length."
+    },
+    {
+      "id": 4114425,
+      "name": "Broken Object Level Authorization",
+      "description": "Users access or manipulate data objects without proper authorization."
+    },
+    {
+      "id": 4114426,
+      "name": "Access Control",
+      "description": "Restricting resources and actions users can access based on roles, permissions, or attributes."
+    },
+    {
+      "id": 4114427,
+      "name": "Auth Failures",
+      "description": "Authentication is weak, misconfigured, or bypassed, allowing unauthorized access."
+    },
+    {
+      "id": 4114428,
+      "name": "SQL Injection",
+      "description": "Insert malicious SQL code into input fields to test for SQL injection vulnerabilities."
+    },
+    {
+      "id": 4114429,
+      "name": "XSS Injection",
+      "description": "Inject JavaScript or HTML tags to test for cross-site scripting vulnerabilities."
+    },
+    {
+      "id": 4114430,
+      "name": "Fuzzy Input",
+      "description": "Send large or randomly generated payloads to test input validation and stability."
+    },
+    {
+      "id": 4114431,
+      "name": "Command Injection",
+      "description": "Insert shell commands into inputs to test for command execution vulnerabilities."
+    },
+    {
+      "id": 4114432,
+      "name": "JSON Injection",
+      "description": "Insert malicious or unexpected JSON structures to test parsing and validation."
+    },
+    {
+      "id": 4114433,
+      "name": "NoSQL Injection",
+      "description": "Provide NoSQL-specific malicious queries or operators to test for injection vulnerabilities."
+    },
+    {
+      "id": 4114434,
+      "name": "Other",
+      "description": "Test cases not classified under existing categories."
+    }
+  ],
+  "projectAssociations": [],
+  "moduleSettings": [
+    {
+      "id": "1131474",
+      "name": "Survey",
+      "description": "Полная коллекция тестов для Survey API с учётом роли admin и всех изменений",
+      "moduleVariables": [
+        {
+          "name": "base_url",
+          "value": "http://localhost:8000",
+          "description": "",
+          "isBindInitial": true,
+          "initialValue": "http://localhost:8000",
+          "isSync": true
+        },
+        {
+          "name": "author_token",
+          "value": "",
+          "description": "",
+          "isBindInitial": true,
+          "initialValue": "",
+          "isSync": true
+        },
+        {
+          "name": "admin_token",
+          "value": "",
+          "description": "",
+          "isBindInitial": true,
+          "initialValue": "",
+          "isSync": true
+        },
+        {
+          "name": "respondent_token",
+          "value": "",
+          "description": "",
+          "isBindInitial": true,
+          "initialValue": "",
+          "isSync": true
+        },
+        {
+          "name": "survey_id",
+          "value": "",
+          "description": "",
+          "isBindInitial": true,
+          "initialValue": "",
+          "isSync": true
+        },
+        {
+          "name": "question_id",
+          "value": "",
+          "description": "",
+          "isBindInitial": true,
+          "initialValue": "",
+          "isSync": true
+        },
+        {
+          "name": "option_id",
+          "value": "",
+          "description": "",
+          "isBindInitial": true,
+          "initialValue": "",
+          "isSync": true
+        }
+      ],
+      "openApiInfo": {}
+    }
+  ]
+}

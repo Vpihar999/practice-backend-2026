@@ -1,0 +1,1759 @@
+{
+    "info": {
+        "name": "Survey API",
+        "description": "",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Authentication",
+            "description": "",
+            "item": [
+                {
+                    "name": "Регистрация пользователя",
+                    "description": "Регистрирует нового пользователя и автоматически выполняет вход.\n\n### Требования к паролю\n\n- Минимум 8 символов\n- Рекомендуется использовать буквы и цифры\n\n### Ответ\n\nУспешный ответ содержит JWT-токен и данные пользователя.\n\n### Примеры\n\n**Успешная регистрация:**\n```json\n{\n  \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...\",\n  \"user\": {\n    \"id\": 1,\n    \"name\": \"John Doe\",\n    \"email\": \"user@example.com\",\n    \"role\": 2\n  }\n}\n```\n\n**Ошибка валидации (422):**\n```json\n{\n  \"message\": \"The email field must be a valid email address.\",\n  \"errors\": {\n    \"email\": [\"The email field must be a valid email address.\"]\n  }\n}\n```",
+                    "event": [],
+                    "auth": {},
+                    "request": {
+                        "auth": {},
+                        "method": "POST",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"John Doe\",\n    \"email\": \"user@example.com\",\n    \"password\": \"password123\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/register",
+                            "path": [
+                                "register"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": []
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Success",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{baseUrl}}/register",
+                                    "path": [
+                                        "register"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"name\": \"John Doe\",\n    \"email\": \"user@example.com\",\n    \"password\": \"password123\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "cookie": []
+                        }
+                    ],
+                    "protocolProfileBehavior": {
+                        "strictSSL": false,
+                        "followRedirects": true
+                    }
+                },
+                {
+                    "name": "Вход в систему",
+                    "description": "Аутентифицирует пользователя по email и паролю.\n\n### Ответ\n\nУспешный вход возвращает JWT-токен и данные пользователя.\n\n### Примеры\n\n**Успешный вход:**\n```json\n{\n  \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...\",\n  \"user\": {\n    \"id\": 1,\n    \"name\": \"John Doe\",\n    \"email\": \"user@example.com\"\n  }\n}\n```\n\n**Ошибка (401):**\n```json\n{\n  \"message\": \"Invalid credentials\"\n}\n```",
+                    "event": [],
+                    "auth": {},
+                    "request": {
+                        "auth": {},
+                        "method": "POST",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"email\": \"user@example.com\",\n    \"password\": \"password123\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/login",
+                            "path": [
+                                "login"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": []
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Success",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{baseUrl}}/login",
+                                    "path": [
+                                        "login"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"email\": \"user@example.com\",\n    \"password\": \"password123\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "cookie": []
+                        }
+                    ],
+                    "protocolProfileBehavior": {
+                        "strictSSL": false,
+                        "followRedirects": true
+                    }
+                },
+                {
+                    "name": "Выход из системы",
+                    "description": "Завершает сессию пользователя и инвалидирует текущий токен.\n\n### Важно\n\nПосле выхода токен становится недействительным. Для повторного входа необходимо снова вызвать `/login`.",
+                    "event": [],
+                    "auth": {},
+                    "request": {
+                        "auth": {
+                            "type": "jwt",
+                            "jwt": [
+                                {
+                                    "key": "bearerFormat",
+                                    "value": "JWT",
+                                    "type": "string"
+                                },
+                                {
+                                    "key": "description",
+                                    "value": "JWT-токен, полученный при регистрации или входе. Передавайте в заголовке: `Authorization: Bearer {token}`",
+                                    "type": "string"
+                                },
+                                {
+                                    "key": "token",
+                                    "value": "{{bearerToken}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "body": {},
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/logout",
+                            "path": [
+                                "logout"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": []
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Success",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{baseUrl}}/logout",
+                                    "path": [
+                                        "logout"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "body": {}
+                            },
+                            "cookie": []
+                        }
+                    ],
+                    "protocolProfileBehavior": {
+                        "strictSSL": false,
+                        "followRedirects": true
+                    }
+                }
+            ],
+            "event": [
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "exec": [],
+                        "type": "text/javascript",
+                        "packages": {}
+                    }
+                },
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [],
+                        "type": "text/javascript",
+                        "packages": {}
+                    }
+                }
+            ],
+            "auth": {}
+        },
+        {
+            "name": "Surveys",
+            "description": "",
+            "item": [
+                {
+                    "name": "Получить список опубликованных опросов",
+                    "description": "Возвращает список всех опубликованных опросов.\n\n### Доступ\n\n**Публичный эндпоинт** — аутентификация не требуется.\n\n### Пример ответа\n\n```json\n{\n  \"data\": [\n    {\n      \"id\": 1,\n      \"title\": \"Опрос удовлетворённости\",\n      \"description\": \"Помогите нам стать лучше\",\n      \"status\": 2,\n      \"created_at\": \"2026-03-01T10:00:00Z\"\n    }\n  ]\n}\n```",
+                    "event": [],
+                    "auth": {},
+                    "request": {
+                        "auth": {},
+                        "method": "GET",
+                        "body": {},
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/surveys",
+                            "path": [
+                                "surveys"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": []
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Success",
+                            "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{baseUrl}}/surveys",
+                                    "path": [
+                                        "surveys"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "body": {}
+                            },
+                            "cookie": []
+                        }
+                    ],
+                    "protocolProfileBehavior": {
+                        "strictSSL": false,
+                        "followRedirects": true
+                    }
+                },
+                {
+                    "name": "Создать новый опрос",
+                    "description": "Создаёт новый опрос в статусе «черновик».\n\n### Требования\n\n- Только авторизованные пользователи с ролью **author** могут создавать опросы\n- Название опроса обязательно\n- Новый опрос создаётся в статусе **draft** (черновик)\n\n### Пример ответа\n\n```json\n{\n  \"id\": 1,\n  \"author_id\": 1,\n  \"title\": \"Мой опрос\",\n  \"description\": \"Описание опроса\",\n  \"status\": 1,\n  \"created_at\": \"2026-03-01T10:00:00Z\"\n}\n```",
+                    "event": [],
+                    "auth": {},
+                    "request": {
+                        "auth": {
+                            "type": "jwt",
+                            "jwt": [
+                                {
+                                    "key": "bearerFormat",
+                                    "value": "JWT",
+                                    "type": "string"
+                                },
+                                {
+                                    "key": "description",
+                                    "value": "JWT-токен, полученный при регистрации или входе. Передавайте в заголовке: `Authorization: Bearer {token}`",
+                                    "type": "string"
+                                },
+                                {
+                                    "key": "token",
+                                    "value": "{{bearerToken}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"title\": \"Опрос удовлетворённости клиентов\",\n    \"description\": \"Помогите нам улучшить наш сервис\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/surveys",
+                            "path": [
+                                "surveys"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": []
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Success",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{baseUrl}}/surveys",
+                                    "path": [
+                                        "surveys"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"title\": \"Опрос удовлетворённости клиентов\",\n    \"description\": \"Помогите нам улучшить наш сервис\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "cookie": []
+                        }
+                    ],
+                    "protocolProfileBehavior": {
+                        "strictSSL": false,
+                        "followRedirects": true
+                    }
+                },
+                {
+                    "name": "Получить детали опроса",
+                    "description": "Возвращает полную информацию об опросе, включая вопросы и варианты ответов.\n\n### Доступ\n\n**Публичный эндпоинт** — доступны только опубликованные опросы.\n\n### Пример ответа\n\n```json\n{\n  \"id\": 1,\n  \"title\": \"Опрос\",\n  \"questions\": [\n    {\n      \"id\": 1,\n      \"text\": \"Ваш возраст?\",\n      \"type\": \"single_choice\",\n      \"options\": [\n        {\"id\": 1, \"text\": \"18-25\"},\n        {\"id\": 2, \"text\": \"26-35\"}\n      ]\n    }\n  ]\n}\n```",
+                    "event": [],
+                    "auth": {},
+                    "request": {
+                        "auth": {},
+                        "method": "GET",
+                        "body": {},
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/surveys/:id",
+                            "path": [
+                                "surveys",
+                                ":id"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": [
+                                {
+                                    "key": "id",
+                                    "value": "",
+                                    "description": "ID опроса",
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Success",
+                            "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{baseUrl}}/surveys/:id",
+                                    "path": [
+                                        "surveys",
+                                        ":id"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": [
+                                        {
+                                            "key": "id",
+                                            "value": "",
+                                            "description": "ID опроса",
+                                            "disabled": false
+                                        }
+                                    ]
+                                },
+                                "body": {}
+                            },
+                            "cookie": []
+                        }
+                    ],
+                    "protocolProfileBehavior": {
+                        "strictSSL": false,
+                        "followRedirects": true
+                    }
+                },
+                {
+                    "name": "Редактировать опрос",
+                    "description": "Обновляет информацию об опросе.\n\n### Ограничения\n\n- Можно редактировать только опросы в статусе **draft** (черновик)\n- После публикации структура опроса не может быть изменена\n- Только автор опроса может редактировать\n\n### Пример\n\n**Запрос:**\n```json\n{\n  \"title\": \"Обновлённое название\",\n  \"description\": \"Новое описание\"\n}\n```",
+                    "event": [],
+                    "auth": {},
+                    "request": {
+                        "auth": {
+                            "type": "jwt",
+                            "jwt": [
+                                {
+                                    "key": "bearerFormat",
+                                    "value": "JWT",
+                                    "type": "string"
+                                },
+                                {
+                                    "key": "description",
+                                    "value": "JWT-токен, полученный при регистрации или входе. Передавайте в заголовке: `Authorization: Bearer {token}`",
+                                    "type": "string"
+                                },
+                                {
+                                    "key": "token",
+                                    "value": "{{bearerToken}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/surveys/:id",
+                            "path": [
+                                "surveys",
+                                ":id"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": [
+                                {
+                                    "key": "id",
+                                    "value": "",
+                                    "description": "ID опроса",
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Success",
+                            "originalRequest": {
+                                "method": "PUT",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{baseUrl}}/surveys/:id",
+                                    "path": [
+                                        "surveys",
+                                        ":id"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": [
+                                        {
+                                            "key": "id",
+                                            "value": "",
+                                            "description": "ID опроса",
+                                            "disabled": false
+                                        }
+                                    ]
+                                },
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "",
+                                    "options": {
+                                        "raw": {
+                                            "language": "text"
+                                        }
+                                    }
+                                }
+                            },
+                            "cookie": []
+                        }
+                    ],
+                    "protocolProfileBehavior": {
+                        "strictSSL": false,
+                        "followRedirects": true
+                    }
+                },
+                {
+                    "name": "Удалить опрос",
+                    "description": "Удаляет опрос и все связанные данные (вопросы, варианты, ответы).\n\n### Доступ\n\n- **Author** — может удалять только свои опросы\n- **Admin** — может удалять любые опросы\n\n### Важно\n\nЭто действие необратимо! Все данные опроса будут удалены.",
+                    "event": [],
+                    "auth": {},
+                    "request": {
+                        "auth": {
+                            "type": "jwt",
+                            "jwt": [
+                                {
+                                    "key": "bearerFormat",
+                                    "value": "JWT",
+                                    "type": "string"
+                                },
+                                {
+                                    "key": "description",
+                                    "value": "JWT-токен, полученный при регистрации или входе. Передавайте в заголовке: `Authorization: Bearer {token}`",
+                                    "type": "string"
+                                },
+                                {
+                                    "key": "token",
+                                    "value": "{{bearerToken}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "body": {},
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/surveys/:id",
+                            "path": [
+                                "surveys",
+                                ":id"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": [
+                                {
+                                    "key": "id",
+                                    "value": "",
+                                    "description": "ID опроса",
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Success",
+                            "originalRequest": {
+                                "method": "DELETE",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{baseUrl}}/surveys/:id",
+                                    "path": [
+                                        "surveys",
+                                        ":id"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": [
+                                        {
+                                            "key": "id",
+                                            "value": "",
+                                            "description": "ID опроса",
+                                            "disabled": false
+                                        }
+                                    ]
+                                },
+                                "body": {}
+                            },
+                            "cookie": []
+                        }
+                    ],
+                    "protocolProfileBehavior": {
+                        "strictSSL": false,
+                        "followRedirects": true
+                    }
+                },
+                {
+                    "name": "Опубликовать опрос",
+                    "description": "Публикует опрос, делая его доступным для прохождения респондентами.\n\n### Важные моменты\n\n- После публикации **нельзя редактировать** структуру опроса (вопросы и варианты)\n- Можно только закрыть опрос или удалить\n- Статус меняется с **draft** на **published**\n\n### Доступ\n\nТолько автор опроса может опубликовать свой опрос.",
+                    "event": [],
+                    "auth": {},
+                    "request": {
+                        "auth": {
+                            "type": "jwt",
+                            "jwt": [
+                                {
+                                    "key": "bearerFormat",
+                                    "value": "JWT",
+                                    "type": "string"
+                                },
+                                {
+                                    "key": "description",
+                                    "value": "JWT-токен, полученный при регистрации или входе. Передавайте в заголовке: `Authorization: Bearer {token}`",
+                                    "type": "string"
+                                },
+                                {
+                                    "key": "token",
+                                    "value": "{{bearerToken}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "body": {},
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/surveys/:id/publish",
+                            "path": [
+                                "surveys",
+                                ":id",
+                                "publish"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": [
+                                {
+                                    "key": "id",
+                                    "value": "",
+                                    "description": "ID опроса",
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Success",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{baseUrl}}/surveys/:id/publish",
+                                    "path": [
+                                        "surveys",
+                                        ":id",
+                                        "publish"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": [
+                                        {
+                                            "key": "id",
+                                            "value": "",
+                                            "description": "ID опроса",
+                                            "disabled": false
+                                        }
+                                    ]
+                                },
+                                "body": {}
+                            },
+                            "cookie": []
+                        }
+                    ],
+                    "protocolProfileBehavior": {
+                        "strictSSL": false,
+                        "followRedirects": true
+                    }
+                },
+                {
+                    "name": "Закрыть опрос",
+                    "description": "Закрывает опрос, запрещая новые ответы.\n\n### Важные моменты\n\n- Закрытый опрос **нельзя пройти** повторно\n- Статус меняется на **closed**\n- Результаты остаются доступными для просмотра\n\n### Доступ\n\nТолько автор опроса может закрыть свой опрос.",
+                    "event": [],
+                    "auth": {},
+                    "request": {
+                        "auth": {
+                            "type": "jwt",
+                            "jwt": [
+                                {
+                                    "key": "bearerFormat",
+                                    "value": "JWT",
+                                    "type": "string"
+                                },
+                                {
+                                    "key": "description",
+                                    "value": "JWT-токен, полученный при регистрации или входе. Передавайте в заголовке: `Authorization: Bearer {token}`",
+                                    "type": "string"
+                                },
+                                {
+                                    "key": "token",
+                                    "value": "{{bearerToken}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "body": {},
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/surveys/:id/close",
+                            "path": [
+                                "surveys",
+                                ":id",
+                                "close"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": [
+                                {
+                                    "key": "id",
+                                    "value": "",
+                                    "description": "ID опроса",
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Success",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{baseUrl}}/surveys/:id/close",
+                                    "path": [
+                                        "surveys",
+                                        ":id",
+                                        "close"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": [
+                                        {
+                                            "key": "id",
+                                            "value": "",
+                                            "description": "ID опроса",
+                                            "disabled": false
+                                        }
+                                    ]
+                                },
+                                "body": {}
+                            },
+                            "cookie": []
+                        }
+                    ],
+                    "protocolProfileBehavior": {
+                        "strictSSL": false,
+                        "followRedirects": true
+                    }
+                }
+            ],
+            "event": [
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "exec": [],
+                        "type": "text/javascript",
+                        "packages": {}
+                    }
+                },
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [],
+                        "type": "text/javascript",
+                        "packages": {}
+                    }
+                }
+            ],
+            "auth": {}
+        },
+        {
+            "name": "Questions",
+            "description": "",
+            "item": [
+                {
+                    "name": "Добавить вопрос к опросу",
+                    "description": "Добавляет новый вопрос к опросу.\n\n### Типы вопросов\n\n| Тип | Описание | Требуемые данные |\n|-----|----------|------------------|\n| `single_choice` | Один вариант из нескольких | `options` (массив вариантов) |\n| `multiple_choice` | Несколько вариантов | `options` (массив вариантов) |\n| `text_answer` | Текстовый ответ | Не требуется |\n\n### Ограничения\n\n- Можно добавлять вопросы только к опросам в статусе **draft**\n- Поле `required` определяет, обязательно ли отвечать на вопрос",
+                    "event": [],
+                    "auth": {},
+                    "request": {
+                        "auth": {
+                            "type": "jwt",
+                            "jwt": [
+                                {
+                                    "key": "bearerFormat",
+                                    "value": "JWT",
+                                    "type": "string"
+                                },
+                                {
+                                    "key": "description",
+                                    "value": "JWT-токен, полученный при регистрации или входе. Передавайте в заголовке: `Authorization: Bearer {token}`",
+                                    "type": "string"
+                                },
+                                {
+                                    "key": "token",
+                                    "value": "{{bearerToken}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"type\": \"single_choice\",\n    \"text\": \"Какой ваш любимый цвет?\",\n    \"order\": 1,\n    \"required\": true\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/surveys/:id/questions",
+                            "path": [
+                                "surveys",
+                                ":id",
+                                "questions"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": [
+                                {
+                                    "key": "id",
+                                    "value": "",
+                                    "description": "ID опроса",
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Success",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{baseUrl}}/surveys/:id/questions",
+                                    "path": [
+                                        "surveys",
+                                        ":id",
+                                        "questions"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": [
+                                        {
+                                            "key": "id",
+                                            "value": "",
+                                            "description": "ID опроса",
+                                            "disabled": false
+                                        }
+                                    ]
+                                },
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"type\": \"single_choice\",\n    \"text\": \"Какой ваш любимый цвет?\",\n    \"order\": 1,\n    \"required\": true\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "cookie": []
+                        }
+                    ],
+                    "protocolProfileBehavior": {
+                        "strictSSL": false,
+                        "followRedirects": true
+                    }
+                },
+                {
+                    "name": "Редактировать вопрос",
+                    "description": "Обновляет существующий вопрос.\n\n### Ограничения\n\n- Можно редактировать только вопросы в опросах со статусом **draft**\n- Нельзя изменить тип вопроса после создания",
+                    "event": [],
+                    "auth": {},
+                    "request": {
+                        "auth": {
+                            "type": "jwt",
+                            "jwt": [
+                                {
+                                    "key": "bearerFormat",
+                                    "value": "JWT",
+                                    "type": "string"
+                                },
+                                {
+                                    "key": "description",
+                                    "value": "JWT-токен, полученный при регистрации или входе. Передавайте в заголовке: `Authorization: Bearer {token}`",
+                                    "type": "string"
+                                },
+                                {
+                                    "key": "token",
+                                    "value": "{{bearerToken}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/questions/:id",
+                            "path": [
+                                "questions",
+                                ":id"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": [
+                                {
+                                    "key": "id",
+                                    "value": "",
+                                    "description": "ID вопроса",
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Success",
+                            "originalRequest": {
+                                "method": "PUT",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{baseUrl}}/questions/:id",
+                                    "path": [
+                                        "questions",
+                                        ":id"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": [
+                                        {
+                                            "key": "id",
+                                            "value": "",
+                                            "description": "ID вопроса",
+                                            "disabled": false
+                                        }
+                                    ]
+                                },
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "",
+                                    "options": {
+                                        "raw": {
+                                            "language": "text"
+                                        }
+                                    }
+                                }
+                            },
+                            "cookie": []
+                        }
+                    ],
+                    "protocolProfileBehavior": {
+                        "strictSSL": false,
+                        "followRedirects": true
+                    }
+                },
+                {
+                    "name": "Удалить вопрос",
+                    "description": "Удаляет вопрос и все связанные варианты ответов.\n\n### Важно\n\nЭто действие необратимо!",
+                    "event": [],
+                    "auth": {},
+                    "request": {
+                        "auth": {
+                            "type": "jwt",
+                            "jwt": [
+                                {
+                                    "key": "bearerFormat",
+                                    "value": "JWT",
+                                    "type": "string"
+                                },
+                                {
+                                    "key": "description",
+                                    "value": "JWT-токен, полученный при регистрации или входе. Передавайте в заголовке: `Authorization: Bearer {token}`",
+                                    "type": "string"
+                                },
+                                {
+                                    "key": "token",
+                                    "value": "{{bearerToken}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "body": {},
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/questions/:id",
+                            "path": [
+                                "questions",
+                                ":id"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": [
+                                {
+                                    "key": "id",
+                                    "value": "",
+                                    "description": "ID вопроса",
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Success",
+                            "originalRequest": {
+                                "method": "DELETE",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{baseUrl}}/questions/:id",
+                                    "path": [
+                                        "questions",
+                                        ":id"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": [
+                                        {
+                                            "key": "id",
+                                            "value": "",
+                                            "description": "ID вопроса",
+                                            "disabled": false
+                                        }
+                                    ]
+                                },
+                                "body": {}
+                            },
+                            "cookie": []
+                        }
+                    ],
+                    "protocolProfileBehavior": {
+                        "strictSSL": false,
+                        "followRedirects": true
+                    }
+                }
+            ],
+            "event": [
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "exec": [],
+                        "type": "text/javascript",
+                        "packages": {}
+                    }
+                },
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [],
+                        "type": "text/javascript",
+                        "packages": {}
+                    }
+                }
+            ],
+            "auth": {}
+        },
+        {
+            "name": "Options",
+            "description": "",
+            "item": [
+                {
+                    "name": "Добавить вариант ответа",
+                    "description": "Добавляет вариант ответа к вопросу.\n\n### Применение\n\nВарианты используются только для вопросов типов:\n- `single_choice` — одиночный выбор\n- `multiple_choice` — множественный выбор\n\n### Ограничения\n\n- Можно добавлять варианты только к вопросам в опросах со статусом **draft**",
+                    "event": [],
+                    "auth": {},
+                    "request": {
+                        "auth": {
+                            "type": "jwt",
+                            "jwt": [
+                                {
+                                    "key": "bearerFormat",
+                                    "value": "JWT",
+                                    "type": "string"
+                                },
+                                {
+                                    "key": "description",
+                                    "value": "JWT-токен, полученный при регистрации или входе. Передавайте в заголовке: `Authorization: Bearer {token}`",
+                                    "type": "string"
+                                },
+                                {
+                                    "key": "token",
+                                    "value": "{{bearerToken}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"text\": \"Красный\",\n    \"order\": 1\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/questions/:id/options",
+                            "path": [
+                                "questions",
+                                ":id",
+                                "options"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": [
+                                {
+                                    "key": "id",
+                                    "value": "",
+                                    "description": "ID вопроса",
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Success",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{baseUrl}}/questions/:id/options",
+                                    "path": [
+                                        "questions",
+                                        ":id",
+                                        "options"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": [
+                                        {
+                                            "key": "id",
+                                            "value": "",
+                                            "description": "ID вопроса",
+                                            "disabled": false
+                                        }
+                                    ]
+                                },
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"text\": \"Красный\",\n    \"order\": 1\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "cookie": []
+                        }
+                    ],
+                    "protocolProfileBehavior": {
+                        "strictSSL": false,
+                        "followRedirects": true
+                    }
+                },
+                {
+                    "name": "Редактировать вариант",
+                    "description": "Обновляет существующий вариант ответа.",
+                    "event": [],
+                    "auth": {},
+                    "request": {
+                        "auth": {
+                            "type": "jwt",
+                            "jwt": [
+                                {
+                                    "key": "bearerFormat",
+                                    "value": "JWT",
+                                    "type": "string"
+                                },
+                                {
+                                    "key": "description",
+                                    "value": "JWT-токен, полученный при регистрации или входе. Передавайте в заголовке: `Authorization: Bearer {token}`",
+                                    "type": "string"
+                                },
+                                {
+                                    "key": "token",
+                                    "value": "{{bearerToken}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/options/:id",
+                            "path": [
+                                "options",
+                                ":id"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": [
+                                {
+                                    "key": "id",
+                                    "value": "",
+                                    "description": "ID варианта",
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Success",
+                            "originalRequest": {
+                                "method": "PUT",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{baseUrl}}/options/:id",
+                                    "path": [
+                                        "options",
+                                        ":id"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": [
+                                        {
+                                            "key": "id",
+                                            "value": "",
+                                            "description": "ID варианта",
+                                            "disabled": false
+                                        }
+                                    ]
+                                },
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "",
+                                    "options": {
+                                        "raw": {
+                                            "language": "text"
+                                        }
+                                    }
+                                }
+                            },
+                            "cookie": []
+                        }
+                    ],
+                    "protocolProfileBehavior": {
+                        "strictSSL": false,
+                        "followRedirects": true
+                    }
+                },
+                {
+                    "name": "Удалить вариант",
+                    "description": "Удаляет вариант ответа.\n\n### Важно\n\nЕсли на этот вариант были ответы, они также будут удалены!",
+                    "event": [],
+                    "auth": {},
+                    "request": {
+                        "auth": {
+                            "type": "jwt",
+                            "jwt": [
+                                {
+                                    "key": "bearerFormat",
+                                    "value": "JWT",
+                                    "type": "string"
+                                },
+                                {
+                                    "key": "description",
+                                    "value": "JWT-токен, полученный при регистрации или входе. Передавайте в заголовке: `Authorization: Bearer {token}`",
+                                    "type": "string"
+                                },
+                                {
+                                    "key": "token",
+                                    "value": "{{bearerToken}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "body": {},
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/options/:id",
+                            "path": [
+                                "options",
+                                ":id"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": [
+                                {
+                                    "key": "id",
+                                    "value": "",
+                                    "description": "ID варианта",
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Success",
+                            "originalRequest": {
+                                "method": "DELETE",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{baseUrl}}/options/:id",
+                                    "path": [
+                                        "options",
+                                        ":id"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": [
+                                        {
+                                            "key": "id",
+                                            "value": "",
+                                            "description": "ID варианта",
+                                            "disabled": false
+                                        }
+                                    ]
+                                },
+                                "body": {}
+                            },
+                            "cookie": []
+                        }
+                    ],
+                    "protocolProfileBehavior": {
+                        "strictSSL": false,
+                        "followRedirects": true
+                    }
+                }
+            ],
+            "event": [
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "exec": [],
+                        "type": "text/javascript",
+                        "packages": {}
+                    }
+                },
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [],
+                        "type": "text/javascript",
+                        "packages": {}
+                    }
+                }
+            ],
+            "auth": {}
+        },
+        {
+            "name": "Responses",
+            "description": "",
+            "item": [
+                {
+                    "name": "Пройти опрос",
+                    "description": "Отправляет ответы на вопросы опроса.\n\n### Требования\n\n- Опрос должен быть в статусе **published**\n- Респондент должен быть аутентифицирован\n- Один пользователь может пройти опрос только **один раз**\n\n### Формат ответов\n\n**Для single_choice:**\n```json\n{\n  \"answers\": [\n    {\"question_id\": 1, \"option_id\": 2}\n  ]\n}\n```\n\n**Для multiple_choice:**\n```json\n{\n  \"answers\": [\n    {\"question_id\": 1, \"option_ids\": [1, 3]}\n  ]\n}\n```\n\n**Для text_answer:**\n```json\n{\n  \"answers\": [\n    {\"question_id\": 1, \"text_value\": \"Мой ответ\"}\n  ]\n}\n```",
+                    "event": [],
+                    "auth": {},
+                    "request": {
+                        "auth": {
+                            "type": "jwt",
+                            "jwt": [
+                                {
+                                    "key": "bearerFormat",
+                                    "value": "JWT",
+                                    "type": "string"
+                                },
+                                {
+                                    "key": "description",
+                                    "value": "JWT-токен, полученный при регистрации или входе. Передавайте в заголовке: `Authorization: Bearer {token}`",
+                                    "type": "string"
+                                },
+                                {
+                                    "key": "token",
+                                    "value": "{{bearerToken}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"answers\": [\n        {\n            \"question_id\": 1,\n            \"option_id\": 2\n        },\n        {\n            \"question_id\": 2,\n            \"option_ids\": [\n                1,\n                3\n            ]\n        },\n        {\n            \"question_id\": 3,\n            \"text_value\": \"Развёрнутый ответ\"\n        }\n    ]\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/surveys/:id/respond",
+                            "path": [
+                                "surveys",
+                                ":id",
+                                "respond"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": [
+                                {
+                                    "key": "id",
+                                    "value": "",
+                                    "description": "ID опроса",
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Success",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{baseUrl}}/surveys/:id/respond",
+                                    "path": [
+                                        "surveys",
+                                        ":id",
+                                        "respond"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": [
+                                        {
+                                            "key": "id",
+                                            "value": "",
+                                            "description": "ID опроса",
+                                            "disabled": false
+                                        }
+                                    ]
+                                },
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"answers\": [\n        {\n            \"question_id\": 1,\n            \"option_id\": 2\n        },\n        {\n            \"question_id\": 2,\n            \"option_ids\": [\n                1,\n                3\n            ]\n        },\n        {\n            \"question_id\": 3,\n            \"text_value\": \"Развёрнутый ответ\"\n        }\n    ]\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "cookie": []
+                        }
+                    ],
+                    "protocolProfileBehavior": {
+                        "strictSSL": false,
+                        "followRedirects": true
+                    }
+                }
+            ],
+            "event": [
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "exec": [],
+                        "type": "text/javascript",
+                        "packages": {}
+                    }
+                },
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [],
+                        "type": "text/javascript",
+                        "packages": {}
+                    }
+                }
+            ],
+            "auth": {}
+        },
+        {
+            "name": "Results",
+            "description": "",
+            "item": [
+                {
+                    "name": "Получить статистику опроса",
+                    "description": "Возвращает статистику по ответам на опрос.\n\n### Данные в ответе\n\n- Общее количество респондентов\n- По каждому вопросу с выбором:\n  - Количество ответов по каждому варианту\n  - Процентное соотношение\n- По текстовым вопросам:\n  - Список всех ответов\n\n### Доступ\n\nТолько автор опроса или администратор.",
+                    "event": [],
+                    "auth": {},
+                    "request": {
+                        "auth": {
+                            "type": "jwt",
+                            "jwt": [
+                                {
+                                    "key": "bearerFormat",
+                                    "value": "JWT",
+                                    "type": "string"
+                                },
+                                {
+                                    "key": "description",
+                                    "value": "JWT-токен, полученный при регистрации или входе. Передавайте в заголовке: `Authorization: Bearer {token}`",
+                                    "type": "string"
+                                },
+                                {
+                                    "key": "token",
+                                    "value": "{{bearerToken}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "body": {},
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/surveys/:id/results",
+                            "path": [
+                                "surveys",
+                                ":id",
+                                "results"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": [
+                                {
+                                    "key": "id",
+                                    "value": "",
+                                    "description": "ID опроса",
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Success",
+                            "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{baseUrl}}/surveys/:id/results",
+                                    "path": [
+                                        "surveys",
+                                        ":id",
+                                        "results"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": [
+                                        {
+                                            "key": "id",
+                                            "value": "",
+                                            "description": "ID опроса",
+                                            "disabled": false
+                                        }
+                                    ]
+                                },
+                                "body": {}
+                            },
+                            "cookie": []
+                        }
+                    ],
+                    "protocolProfileBehavior": {
+                        "strictSSL": false,
+                        "followRedirects": true
+                    }
+                },
+                {
+                    "name": "Экспорт результатов в JSON",
+                    "description": "Экспортирует все результаты опроса в формате JSON.\n\n### Данные в ответе\n\n- Информация об опросе\n- Список всех респондентов\n- Все ответы с деталями\n\n### Доступ\n\nТолько автор опроса или администратор.",
+                    "event": [],
+                    "auth": {},
+                    "request": {
+                        "auth": {
+                            "type": "jwt",
+                            "jwt": [
+                                {
+                                    "key": "bearerFormat",
+                                    "value": "JWT",
+                                    "type": "string"
+                                },
+                                {
+                                    "key": "description",
+                                    "value": "JWT-токен, полученный при регистрации или входе. Передавайте в заголовке: `Authorization: Bearer {token}`",
+                                    "type": "string"
+                                },
+                                {
+                                    "key": "token",
+                                    "value": "{{bearerToken}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "body": {},
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/surveys/:id/results/export",
+                            "path": [
+                                "surveys",
+                                ":id",
+                                "results",
+                                "export"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": [
+                                {
+                                    "key": "id",
+                                    "value": "",
+                                    "description": "ID опроса",
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Success",
+                            "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{baseUrl}}/surveys/:id/results/export",
+                                    "path": [
+                                        "surveys",
+                                        ":id",
+                                        "results",
+                                        "export"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": [
+                                        {
+                                            "key": "id",
+                                            "value": "",
+                                            "description": "ID опроса",
+                                            "disabled": false
+                                        }
+                                    ]
+                                },
+                                "body": {}
+                            },
+                            "cookie": []
+                        }
+                    ],
+                    "protocolProfileBehavior": {
+                        "strictSSL": false,
+                        "followRedirects": true
+                    }
+                }
+            ],
+            "event": [
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "exec": [],
+                        "type": "text/javascript",
+                        "packages": {}
+                    }
+                },
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [],
+                        "type": "text/javascript",
+                        "packages": {}
+                    }
+                }
+            ],
+            "auth": {}
+        }
+    ],
+    "variable": [],
+    "event": [],
+    "auth": {}
+}

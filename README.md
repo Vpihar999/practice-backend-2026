@@ -1,93 +1,282 @@
-# Преддипломная практика — Бэкенд-разработка
+# Survey API — Сервис опросов и голосований
 
-Веб-программирование | 2026
+REST API для создания опросов, прохождения и анализа результатов.
 
----
-
-## О практике
-
-Цель практики — самостоятельно спроектировать и реализовать REST API для реального сценария использования. Вы выбираете один из двух проектов, проектируете базу данных и структуру API, пишете код, тесты, документацию и упаковываете всё в Docker.
-
-**Длительность:** хтобзнал
-**Формат:** еженедельные онлайн-встречи + очные встречи раз в 2 недели
+![Tests](https://img.shields.io/badge/tests-29%20passed-green)
+![PHP](https://img.shields.io/badge/PHP-8.4-blue)
+![Laravel](https://img.shields.io/badge/Laravel-12-red)
+![Docker](https://img.shields.io/badge/Docker-ready-blue)
 
 ---
 
-## Проекты
+## О проекте
 
-| #   | Проект                                   | Описание                                                           |
-| --- | ---------------------------------------- | ------------------------------------------------------------------ |
-| 1   | [Booking API](./projects/booking-api.md) | Система бронирования ресурсов (переговорки, номера, рабочие места) |
-| 2   | [Survey API](./projects/survey-api.md)   | Сервис опросов и голосований с аналитикой результатов              |
+**Survey API** — это платформа для создания анкет и голосований с различными типами вопросов, сбора ответов от респондентов и анализа результатов.
 
-Выберите один проект и сообщите преподавателю до первой встречи.
+**Возможности:**
+- Создание опросов с вопросами разных типов (одиночный выбор, множественный выбор, текстовый ответ)
+- Управление жизненным циклом опроса (черновик → опубликован → закрыт)
+- Прохождение опросов респондентами
+- Аналитика и экспорт результатов
 
----
-
-## Стек (на выбор)
-
-- **PHP** — Laravel
-- **Node.js** — Express.js
-- **Python** — Flask / Django
-- **Go** — Gin / Echo
-
-База данных: MySQL или PostgreSQL.
+**Стек:**
+- PHP 8.4
+- Laravel 12
+- MySQL 8.4
+- Laravel Sanctum (JWT-аутентификация)
 
 ---
 
-## Чекпоинты
+## Быстрый старт
 
-| #   | Тема                       |
-| --- | -------------------------- |
-| 1   | Проектирование и старт     |
-| 2   | Авторизация и базовый CRUD |
-| 3   | Основная бизнес-логика     |
-| 4   | Продвинутый функционал     |
-| 5   | Тесты, Swagger, Docker     |
-| 6   | Финализация и защита       |
+### Требования
 
-Требования к каждому чекпоинту публикуются в начале соответствующей недели.
+- PHP = 8.4
+- Composer
+- MySQL = 8.4
+- Git
+
+### Установка
+
+1. **Клонируйте репозиторий**
+   ```bash
+   git clone https://github.com/patitema/practice-backend-2026.git 
+   cd practice-backend-2026
+   ```
+
+2. **Перейдите в папку проекта**
+   ```bash
+   cd src
+   ```
+
+3. **Установите зависимости**
+   ```bash
+   composer install
+   ```
+
+4. **Настройте окружение**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+
+5. **Настройте подключение к БД** (файл `.env`)
+   ```env
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=survey_api
+   DB_USERNAME=root
+   DB_PASSWORD=ваш_пароль
+   ```
+
+6. **Создайте базу данных**
+   ```bash
+   mysql -u root -p -e "CREATE DATABASE survey_api CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+   ```
+
+7. **Запустите миграции и сидеры**
+   ```bash
+   php artisan migrate --seed
+   ```
+
+8. **Запустите сервер**
+   ```bash
+   php artisan serve
+   ```
+
+API доступен по адресу: `http://localhost:8000/api`
 
 ---
 
-## Как работать
+## 🐳 Docker
 
-1. **Форкните** этот репозиторий
-2. Создайте ветку `dev` — работайте в ней
-3. На каждый чекпоинт открывайте **Merge Request** в свой форк: `dev → main`
-4. Проводится ревью и комментаруется в MR
+### Требования
 
-### Структура вашего репозитория
+- Docker
+- Docker Compose
+
+### Быстрый старт
+
+1. **Запуск контейнеров**
+   ```bash
+   docker-compose up -d
+   ```
+
+2. **Запуск миграций**
+   ```bash
+   docker-compose exec app php artisan migrate --seed
+   ```
+
+3. **Запуск тестов**
+   ```bash
+   docker-compose exec app php artisan test
+   ```
+
+4. **Остановка**
+   ```bash
+   docker-compose down
+   ```
+
+### Сервисы
+
+| Сервис | URL | Описание |
+|--------|-----|----------|
+| API | http://localhost:8000 | Laravel приложение |
+| phpMyAdmin | http://localhost:8080 | Веб-интерфейс БД |
+| MySQL | localhost:3306 | База данных |
+
+### Полезные команды
+
+```bash
+# Просмотр логов
+docker-compose logs -f app
+
+# Доступ к shell контейнера
+docker-compose exec app bash
+
+# Перезапуск
+docker-compose restart
+
+# Полная пересборка
+docker-compose up -d --build
+```
+
+---
+
+## API Endpoints
+
+### Аутентификация
+
+| Метод | URL | Описание | Auth |
+|-------|-----|----------|------|
+| `POST` | `/api/register` | Регистрация | Нет |
+| `POST` | `/api/login` | Вход | Нет |
+| `POST` | `/api/logout` | Выход | Да |
+
+### Опросы
+
+| Метод | URL | Описание | Auth |
+|-------|-----|----------|------|
+| `GET` | `/api/surveys` | Список опубликованных | Нет |
+| `GET` | `/api/surveys/{id}` | Детали опроса | Нет |
+| `POST` | `/api/surveys` | Создать опрос | Да |
+| `PUT` | `/api/surveys/{id}` | Редактировать опрос | Да |
+| `POST` | `/api/surveys/{id}/publish` | Опубликовать | Да |
+| `POST` | `/api/surveys/{id}/close` | Закрыть опрос | Да |
+| `DELETE` | `/api/surveys/{id}` | Удалить опрос | Да |
+
+### Вопросы
+
+| Метод | URL | Описание | Auth |
+|-------|-----|----------|------|
+| `POST` | `/api/surveys/{id}/questions` | Добавить вопрос | Да |
+| `PUT` | `/api/questions/{id}` | Редактировать вопрос | Да |
+| `DELETE` | `/api/questions/{id}` | Удалить вопрос | Да |
+
+### Варианты ответов
+
+| Метод | URL | Описание | Auth |
+|-------|-----|----------|------|
+| `POST` | `/api/questions/{id}/options` | Добавить вариант | Да |
+| `PUT` | `/api/options/{id}` | Редактировать вариант | Да |
+| `DELETE` | `/api/options/{id}` | Удалить вариант | Да |
+
+### Прохождение опросов
+
+| Метод | URL | Описание | Auth |
+|-------|-----|----------|------|
+| `POST` | `/api/surveys/{id}/respond` | Пройти опрос | Да |
+
+### Аналитика
+
+| Метод | URL | Описание | Auth |
+|-------|-----|----------|------|
+| `GET` | `/api/surveys/{id}/results` | Статистика | Да |
+| `GET` | `/api/surveys/{id}/results/export` | Экспорт в JSON | Да |
+
+> **Примечание:** Для защищённых эндпоинтов передавайте токен в заголовке:
+> `Authorization: Bearer <ваш_токен>`
+
+### Права доступа
+
+| Роль | Создание опросов | Редактирование | Удаление | Статистика | Прохождение |
+|------|-----------------|----------------|----------|------------|-------------|
+| **author** | ✅ Свои | ✅ Свои (черновик) | ✅ Свои | ✅ Свои | ✅ |
+| **admin** | ❌ | ❌ | ✅ Любые | ✅ Любые | ❌ |
+| **respondent** | ❌ | ❌ | ❌ | ❌ | ✅ |
+
+> **Примечание:** Роль `admin` назначается вручную через БД:
+> ```sql
+> UPDATE users SET role = 3 WHERE email = 'admin@example.com';
+> ```
+
+Полная документация API доступна в файле [`survey-api.md`](./survey-api.md).
+
+---
+
+## База данных
+
+### Справочники
+
+| Таблица | Описание |
+|---------|----------|
+| `roles` | Роли: author (1), respondent (2), **admin (3)** |
+| `statuses` | Статусы: draft, published, closed |
+| `types` | Типы вопросов: single_choice, multiple_choice, text_answer |
+
+### Основные таблицы
+
+| Таблица | Описание |
+|---------|----------|
+| `users` | Пользователи |
+| `surveys` | Опросы |
+| `questions` | Вопросы |
+| `options` | Варианты ответов |
+| `responses` | Ответы респондентов |
+| `answers` | Детали ответов |
+
+ER-диаграмма: [`docs/er-diagram.png`](./docs/er-diagram.png)
+
+---
+
+## 📁 Структура проекта
 
 ```
-├── README.md          # Описание проекта, инструкция по запуску
+practice-backend-2026/
+├── src/                          # Laravel приложение
+│   ├── app/
+│   │   ├── Http/Controllers/Api/ # Контроллеры
+│   │   └── Models/               # Модели
+│   ├── database/
+│   │   ├── migrations/           # Миграции
+│   │   └── seeders/              # Сидеры
+│   ├── routes/
+│   │   └── api.php               # API маршруты
+│   ├── tests/                    # Автотесты
+│   └── .env                      # Конфигурация
 ├── docs/
-│   └── er-diagram.png # ER-диаграмма (или ссылка на dbdiagram.io)
-├── src/               # Код приложения (структура зависит от стека)
-├── tests/             # Автотесты
-├── Dockerfile
-├── docker-compose.yml
-└── .gitignore
+│   ├── er-diagram.png            # ER-диаграмма
+│   ├── Survey API.openapi.json   # OpenAPI спецификация 
+│   ├── Survey API.apidog.json    # ApiDog спецификация
+│   ├── Survey API.postman.json   # Postman коллекция
+│   └── survey_api.sql            # SQL-схема
+├── README.md                     # Этот файл
+├── survey-api.md                 # Предметная область проекта
+└── Task.md                       # Задание практики
 ```
 
 ---
 
-## Требования к сдаче
+## 📚 Документация
 
-- [ ] REST API — корректные HTTP-методы и коды ответов
-- [ ] Аутентификация (JWT)
-- [ ] Валидация входных данных
-- [ ] Swagger / OpenAPI документация
-- [ ] Минимум 5 автотестов
-- [ ] Docker — проект запускается через `docker-compose up`
-- [ ] README с описанием и инструкцией по запуску
-- [ ] Осмысленная история коммитов
+- [Survey API — предметная область](./survey-api.md)
+- [ER-диаграмма](./docs/er-diagram.png)
+- [OpenAPI спецификация](./docs/Survey%20API.openapi.json)
+- [Postman коллекция](./docs/Survey%20API.postman.json)
+- [Задание практики](./Task.md)
 
 ---
 
-## Полезные ссылки
-
-- [Swagger/OpenAPI](https://swagger.io/specification/)
-- [dbdiagram.io](https://dbdiagram.io) — проектирование ER-диаграмм
-- [Postman](https://www.postman.com) — тестирование API
-- [Docker — Getting Started](https://docs.docker.com/get-started/)
+**Автор:** Студент группы 1ИСП-21 Авхимович Артём
+**Год:** 2026
