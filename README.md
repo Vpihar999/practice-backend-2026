@@ -275,8 +275,3 @@ practice-backend-2026/
 - [OpenAPI спецификация](./docs/Survey%20API.openapi.json)
 - [Postman коллекция](./docs/Survey%20API.postman.json)
 - [Задание практики](./Task.md)
-
----
-
-**Автор:** Студент группы 1ИСП-21 Авхимович Артём
-**Год:** 2026
